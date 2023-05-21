@@ -1,1 +1,6 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/bJdnex5_)
+# SoundScapes: A Deep Dive into Spotify's Tracks
+
+Projeto final desenvolvido para a disciplina de Data Visualization pelos alunos [Bernardo Vargas](https://github.com/bernardovma), [Cristiano Lárrea](https://github.com/cristianolarrea) e [Paloma Borges](https://github.com/palomavb).
+
+## Sources and References
+- Data: [Top Hits Spotify from 2000-2019 | Kaggle](https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019)

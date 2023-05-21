@@ -1,0 +1,33 @@
+html {
+    background: black;
+    font-family: 'gotham', sans-serif;
+    color: white;
+  }
+  
+.scroll-down {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  width: 30px;
+  height: 40px;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: url('../assets/arrow-bottom.svg') no-repeat center center;
+}
+
+.image-replace {
+  /* replace text with image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  color: transparent;
+}
+
+.section {
+  width: 100%;
+  height: 100vh;
+}

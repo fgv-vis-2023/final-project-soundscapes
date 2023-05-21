@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SoundScapes</title>
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script> 
+    <link rel="stylesheet" href="./assets/style.css">
+    <!-- Load AOS library for animation on scroll-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- 1. Title -->
+    <section id="section1" class="section nav-section">
+      <div style="width:100%; height: 100%; background-image: url('./assets/background.jpg'); 
+        background-position: center; background-repeat: no-repeat; background-size:cover;">
+        <div style="padding-top: 20vh; padding-bottom: 56vh;">
+          <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="300" style="padding-left: 11%">
+            <h1 style="font-size: 50px; margin-bottom: 0.3em;">SoundScapes</h1>
+            <h2 style="margin-top: 0;">A deep dive into Spotify's tracks</h2>
+          </div>
+          <a href="#section2" class="scroll-down image-replace">scroll down</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Context -->
+    <section id="section2" class="nav-section section">
+      <div data-aos="fade-in">
+        
+      </div>
+    </section>
+
+    <!-- Footer-->
+    <section>
+
+    </section>
+
+    <!-- Load AOS Animation on Scroll library and initialize it -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="scrolldown.js"></script>
+  </body>
+</html>
