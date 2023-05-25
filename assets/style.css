@@ -1,8 +1,25 @@
-html {
+html, body {
     background: black;
     font-family: 'gotham', sans-serif;
     color: white;
   }
+
+img {
+  float: right;
+  vertical-align: text-top;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #1DB954;
+}
   
 .scroll-down {
   position: absolute;
