@@ -1,4 +1,5 @@
-// https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv
+// TODO: add comments
+// TODO: add Tooltip to donut chart, with the feature name and value and color
 
 // search bar
 const resultBox = document.querySelector(".result-box");
@@ -81,6 +82,7 @@ clearButton.onclick = () => {
     clearButton.classList.remove("visible");
     updateDonutChart(null);
     textGroup.selectAll("text").remove();
+    g.selectAll("text").remove();
 }
 
 // music features radial chart
@@ -174,6 +176,22 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         return arcGenerator(d, i);
         };
     }
+
+    // write popularity value in the center of the donut chart
+    g.append("text")
+        .attr("x", -30)
+        .attr("y", 5)
+        .attr("font-size", "50px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#fff")
+        .text(popularityValue);
+
+    g.append("text")
+        .attr("x", -74)
+        .attr("y", 40)
+        .attr("font-size", "20px")
+        .attr("fill", "#fff")
+        .text("Popularity Rank");
 }
 
 // add features text
