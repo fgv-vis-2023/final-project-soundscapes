@@ -160,14 +160,14 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attr("font-size", "22px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
-        .text(selectedMusicTitle + " by " + selectedMusicArtist);
+        .text(selectedMusicTitle);
 
     textGroup.append("text")
         .attr("x", 0)
         .attr("y", 28)
         .attr("font-size", "18px")
         .attr("fill", "#fff")
-        .text("Year: " + year + " | Popularity: " + popularityValue);
+        .text("by " + selectedMusicArtist + " | Year: " + year);
 
     function arcTween(d, i) {
         var interpolate = d3.interpolate(0, d.value);
@@ -178,20 +178,22 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
     }
 
     // write popularity value in the center of the donut chart
+    g.selectAll("text").remove(); // Clear previous text elements
+
     g.append("text")
-        .attr("x", -30)
+        .attr("x", -50)
         .attr("y", 5)
         .attr("font-size", "50px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
-        .text(popularityValue);
+        .text(popularityValue + "%");
 
     g.append("text")
-        .attr("x", -74)
+        .attr("x", -48)
         .attr("y", 40)
         .attr("font-size", "20px")
         .attr("fill", "#fff")
-        .text("Popularity Rank");
+        .text("popularity");
 }
 
 // add features text
