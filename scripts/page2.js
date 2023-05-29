@@ -13,8 +13,9 @@ function cleanData(data) {
         if (d.genre.includes(",")) {
             var genres = d.genre.split(", ");
             genres.forEach(function(g) {
-                d.genre=g;
-                myData.push(d);
+                var newData = Object.assign({}, d);
+                newData.genre = g
+                myData.push(newData);
             })
         } else {
             myData.push(d);
