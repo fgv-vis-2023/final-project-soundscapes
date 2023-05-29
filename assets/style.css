@@ -63,7 +63,7 @@ a:visited {
 
 .search-input input{
   height: 32px;
-  width: 30%;
+  width: 35%;
   text-align: center;
   outline: none;
   border: none;
@@ -75,7 +75,7 @@ a:visited {
 
 .search-input .result-box{
   position: absolute;
-  width: 30%;
+  width: 34%;
   padding: 0;
   max-height: 250px;
   overflow-y: auto;
@@ -86,7 +86,7 @@ a:visited {
   border: lightgray solid 0.8px;
   border-radius: 5px;
   padding: 0;
-  left: 35%;
+  left: 33%;
 }
 
 .result-box li{
@@ -116,7 +116,8 @@ a:visited {
   border: none;
   font-size: 12px;
   cursor: pointer;
-  top: 62%;
+  margin-left: 5px;
+  top: 50px;
 }
 
 .clear-button:hover {
