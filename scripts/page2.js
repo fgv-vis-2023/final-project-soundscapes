@@ -23,7 +23,7 @@ function cleanData(data) {
     return myData;
 }
 
-var data = d3.csv("./data/songs.csv").then(data => {
+var data = d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(data => {
     //Prepare data spliting string in "genre" columns
     data = cleanData(data);
 

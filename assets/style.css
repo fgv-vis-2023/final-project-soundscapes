@@ -111,13 +111,13 @@ a:visited {
   padding: 5px;
   border-radius: 5px;
   background: white;
-  height: 25px;
+  height: 26px;
   width: auto;
   border: none;
   font-size: 12px;
   cursor: pointer;
   margin-left: 5px;
-  top: 50px;
+  top: 123px;
 }
 
 .clear-button:hover {
