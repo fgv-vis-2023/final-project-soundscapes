@@ -1,58 +1,62 @@
-// Load the dataset from a local CSV file
-d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(function(dataset) {
-    // Parse the year and popularity properties as numbers
-    dataset.forEach(d => {
-      d.year = parseInt(d.year);
-      d.popularity = parseFloat(d.popularity);
-    });
-  
-    // Group the dataset by artist
-    const groupedData = Array.from(d3.group(dataset, d => d.artist), ([key, value]) => ({
-      artist: key,
-      popularity: d3.mean(value, d => d.popularity)
-    }));
-  
-    // Filter the dataset based on the selected year
-    function filterDataByYear(year) {
-      return dataset.filter(d => d.year === year);
+const startYear = 1990;
+const endYear = new Date().getFullYear();
+const dropdown = d3.select("#year-dropdown");
+const popularArtistsContainer = d3.select("#popular-artists");
+
+// Load the CSV file
+d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(function(data) {
+  const yearsData = d3.group(data, d => +d.year);
+
+  dropdown.selectAll("option")
+    .data(d3.range(startYear, endYear + 1))
+    .enter()
+    .append("option")
+    .attr("value", year => year)
+    .text(year => year);
+
+  dropdown.on("change", function() {
+    const selectedYear = +this.value;
+    updatePopularArtists(selectedYear);
+  });
+
+  function updatePopularArtists(year) {
+    popularArtistsContainer.html("");
+
+    const yearData = yearsData.get(year);
+
+    if (yearData) {
+      const artistsData = d3.group(yearData, d => d.artist);
+      const artistsPopularity = [];
+
+      artistsData.forEach(function(artists, artist) {
+        const popularitySum = d3.sum(artists, d => +d.popularity);
+        const popularityAvg = popularitySum / artists.length;
+
+        artistsPopularity.push({
+          artist: artist,
+          popularity: popularityAvg
+        });
+      });
+
+      const sortedArtists = artistsPopularity.sort((a, b) => b.popularity - a.popularity);
+      const top10Artists = sortedArtists.slice(0, 10).map(d => d.artist);
+
+      popularArtistsContainer.append("h3")
+        .text(`Top 10 Artists in ${year}`);
+
+      const artistsList = popularArtistsContainer.append("ul");
+
+      top10Artists.forEach(function(artist) {
+        artistsList.append("li")
+          .text(artist);
+      });
     }
-  
-    // Update the visualization based on the filtered data
-    function updateVisualization(year) {
-      const filteredData = filterDataByYear(year);
-  
-      // Filter the artist popularity data based on the filtered data
-      const filteredArtistPopularity = groupedData.filter(d =>
-        filteredData.some(song => song.artist === d.artist)
-      );
-  
-      // Sort the artist popularity data by popularity in descending order
-      filteredArtistPopularity.sort((a, b) => b.popularity - a.popularity);
-  
-      // Take the top 10 artists
-      const topArtists = filteredArtistPopularity.slice(0, 10).map(d => d.artist);
-  
-      // Clear the previous content
-      d3.select("#top-artists").html("");
-  
-      // Display the top artists
-      d3.select("#top-artists")
-        .selectAll("p")
-        .data(topArtists)
-        .enter()
-        .append("p")
-        .text(d => d);
-    }
-  
-    // Get the current value of the year slider and update the visualization
-    function onSliderChange() {
-      const year = parseInt(this.value);
-      updateVisualization(year);
-    }
-  
-    // Attach the slider change event listener
-    document.getElementById("year-slider").addEventListener("input", onSliderChange);
-  
-    // Initialize the visualization
-    updateVisualization(parseInt(document.getElementById("year-slider").value));
-  });  
+  }
+
+  // Initialize with the current year
+  const currentYear = new Date().getFullYear();
+  dropdown.property("value", currentYear);
+  updatePopularArtists(currentYear);
+}).catch(function(error) {
+  console.log("Error loading the CSV file:", error);
+});
