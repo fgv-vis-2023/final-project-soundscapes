@@ -1,7 +1,6 @@
 const startYear = 1990;
 const endYear = new Date().getFullYear();
 const dropdown = d3.select("#year-dropdown");
-const svg = d3.select("#chart");
 
 // Load the CSV file
 d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(function(data) {
