@@ -1,28 +1,124 @@
 // TODO: add comments
 // TODO: add Tooltip to donut chart, with the feature name and value and color
 
-// search bar
+// ----------- variables ------------
 const resultBox = document.querySelector(".result-box");
 const inputBox = document.querySelector(".search-input input");
 const clearButton = document.querySelector(".clear-button");
 
-inputBox.onkeyup = function(){
-    let userInput = inputBox.value;
-    if(userInput.length > 0){
-        d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(function(data){
-            result = data.filter(music => music.song.toLocaleLowerCase().startsWith(userInput.toLocaleLowerCase()));
-            showSuggestions(result);
+// ---------- svg elements -----------
+const svg3 = d3.select("#features-chart")
+    .append("svg")
+    .attr("width", 1100)
+    .attr("height", 600);
 
-            if(!result.length){
-                resultBox.innerHTML = "";
-                clearButton.classList.remove("visible");
-            } else {
-                clearButton.classList.add("visible");
-            }
-        });
-    } else {
+const textGroup = svg3.append("g")
+    .attr("transform", "translate(0,60)");
+
+const textGroup2 = svg3.append("g")
+    .attr("transform", "translate(0,140)");
+
+const g = svg3.append("g")
+    .attr("transform", "translate(850," + (svg3.attr("height") / 2) + ")");
+
+// --------- data variables ----------
+let musicData = [];
+
+d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv")
+    .then(data => {
+        musicData = data;
+    })
+    .catch(error => {
+        console.log("Erro ao carregar o arquivo CSV:", error);
+    });
+
+let debounceTimeout; // avoid multiple calls to filterData
+
+inputBox.onkeyup = function(){
+    clearTimeout(debounceTimeout); // cancel previous timeout
+    debounceTimeout = setTimeout(filterData, 300); // set new timeout
+}
+
+clearButton.onclick = () => {
+    inputBox.value = "";
+    resultBox.innerHTML = "";
+    clearButton.classList.remove("visible");
+    updateDonutChart(null);
+    textGroup.selectAll("text").remove();
+    g.selectAll("text").remove();
+}
+
+var arcGenerator = d3.arc()
+  .innerRadius((d, idx) => 120 + 25 * idx)
+  .outerRadius((d, idx) => 140 + 25 * idx)
+  .startAngle(d => 0)
+  .endAngle(d => d.value * 2 * Math.PI)
+  .padAngle(0.005) 
+  .padRadius(80)
+  .cornerRadius(4);
+
+var color = d3.scaleOrdinal()
+    .domain([0, 1, 2, 3])
+    .range(["#42FFEF", "#17B5AC", "#1EBA55", "#83D117"]);
+
+// add features text
+textGroup2.append("text")
+    .attr("x", 0)
+    .attr("y", 5)
+    .attr("font-size", "20px")
+    .attr("font-weight", "bold")
+    .attr("fill", "#fff")
+    .text("Music Features (0 - 1)");
+
+var textContent = [
+    "",
+    "Energy: It measures the intensity and activity level of a track.",
+    "Higher values indicate more energetic and lively music.",
+    "",
+    "Valence: It describes the musical positiveness conveyed by a track.",
+    "Higher valence values indicate more positive and uplifting music,",
+    "while lower values indicate more negative or melancholic music.",
+    "",
+    "Danceability: It assesses how suitable a track is for dancing based",
+    "on a combination of musical elements including tempo, rhythm",
+    "stability, beat strength, and overall regularity.",
+    "",
+    "Speechiness: It indicates the presence of spoken words in a track.",
+    "A value close to 1.0 suggests that the track primarily consists of",
+    "spoken words, such as talk shows or poetry. Values between",
+    "0.33 and 0.66 represent tracks that may contain both music and",
+    "speech, including genres like rap. Values below 0.33 mostly",
+    "represent music without significant speech-like elements."
+];
+
+textGroup2.selectAll("text")
+    .data(textContent)
+    .enter()
+    .append("text")
+    .attr("x", 0)
+    .attr("y", (d, i) => 30 + i * 20)
+    .attr("font-size", "16px")
+    .attr("fill", "#fff")
+    .text(d => d);
+
+// ------------ functions ------------
+function filterData() {
+    let userInput = inputBox.value;
+    if (userInput.length > 0) {
+      const result = musicData.filter(
+        (music) => music.song.toLowerCase().startsWith(userInput.toLowerCase())
+      );
+      showSuggestions(result);
+  
+      if (!result.length) {
         resultBox.innerHTML = "";
         clearButton.classList.remove("visible");
+      } else {
+        clearButton.classList.add("visible");
+      }
+    } else {
+      resultBox.innerHTML = "";
+      clearButton.classList.remove("visible");
     }
 }
 
@@ -53,73 +149,32 @@ function selectInput(list){
 
 function retrieveMusicData(selectedMusic){
     return new Promise((resolve, reject) => {
-        d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(function (data) {
-          // filter data
-          const result = data.find((music) =>music.song.toLowerCase() === selectedMusic.toLowerCase());
-          if (result) {
-            // get features
-            const features = {
-                speechiness: parseFloat(result.speechiness),
-                danceability: parseFloat(result.danceability),
-                valence: parseFloat(result.valence),
-                energy: parseFloat(result.energy),
-                artist: result.artist,
-                popularity: parseFloat(result.popularity),
-                year: parseFloat(result.year)
-            };
-            resolve(features);
-          } else {
-            reject("Música não encontrada");
-          }
-        });
+        d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv")
+            .then(function (data) {
+                // filter data
+                const result = data.find((music) =>music.song.toLowerCase() === selectedMusic.toLowerCase());
+                if (result) {
+                    // get features
+                    const features = {
+                        speechiness: parseFloat(result.speechiness),
+                        danceability: parseFloat(result.danceability),
+                        valence: parseFloat(result.valence),
+                        energy: parseFloat(result.energy),
+                        artist: result.artist,
+                        popularity: parseFloat(result.popularity),
+                        year: parseFloat(result.year)
+                    };
+                    resolve(features);
+                } else {
+                    reject("Música não encontrada");
+                }
+            }) 
+            .catch(function (error) {
+                console.log("Erro ao recuperar dados da música:", error);
+                reject(error);
+            });
     });
 }
-
-// clear button
-clearButton.onclick = () => {
-    inputBox.value = "";
-    resultBox.innerHTML = "";
-    clearButton.classList.remove("visible");
-    updateDonutChart(null);
-    textGroup.selectAll("text").remove();
-    g.selectAll("text").remove();
-}
-
-// music features radial chart
-const svg = d3.select("#features-chart")
-    .append("svg")
-    .attr("width", 1100)
-    .attr("height", 600);
-
-const textGroup = svg.append("g")
-    .attr("transform", "translate(0,60)");
-
-const textGroup2 = svg.append("g")
-    .attr("transform", "translate(0,140)");
-
-const g = svg.append("g")
-    .attr("transform", "translate(850," + (svg.attr("height") / 2) + ")");
-
-var arcGenerator = d3.arc()
-  .innerRadius(function (d, idx) {
-    return 120 + 25 * idx; 
-  })
-  .outerRadius(function (d, idx) {
-    return 140 + 25 * idx;
-  })
-  .startAngle(function (d) {
-    return 0;
-  })
-  .endAngle(function (d) {
-    return d.value * 2 * Math.PI;
-  })
-  .padAngle(0.005) 
-  .padRadius(80)
-  .cornerRadius(4);
-
-var color = d3.scaleOrdinal()
-    .domain([0, 1, 2, 3])
-    .range(["#42FFEF", "#17B5AC", "#1EBA55", "#83D117"]);
 
 function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popularityValue, year) {
     if (data == null) {
@@ -195,43 +250,3 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attr("fill", "#fff")
         .text("popularity");
 }
-
-// add features text
-textGroup2.append("text")
-    .attr("x", 0)
-    .attr("y", 5)
-    .attr("font-size", "20px")
-    .attr("font-weight", "bold")
-    .attr("fill", "#fff")
-    .text("Music Features (0 - 1)");
-
-var textContent = [
-    "",
-    "Energy: It measures the intensity and activity level of a track.",
-    "Higher values indicate more energetic and lively music.",
-    "",
-    "Valence: It describes the musical positiveness conveyed by a track.",
-    "Higher valence values indicate more positive and uplifting music,",
-    "while lower values indicate more negative or melancholic music.",
-    "",
-    "Danceability: It assesses how suitable a track is for dancing based",
-    "on a combination of musical elements including tempo, rhythm",
-    "stability, beat strength, and overall regularity.",
-    "",
-    "Speechiness: It indicates the presence of spoken words in a track.",
-    "A value close to 1.0 suggests that the track primarily consists of",
-    "spoken words, such as talk shows or poetry. Values between",
-    "0.33 and 0.66 represent tracks that may contain both music and",
-    "speech, including genres like rap. Values below 0.33 mostly",
-    "represent music without significant speech-like elements."
-];
-
-textGroup2.selectAll("text")
-    .data(textContent)
-    .enter()
-    .append("text")
-    .attr("x", 0)
-    .attr("y", (d, i) => 30 + i * 20)
-    .attr("font-size", "16px")
-    .attr("fill", "#fff")
-    .text(d => d);
