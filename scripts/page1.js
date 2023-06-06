@@ -1,6 +1,6 @@
 const margin = { top: 20, right: 20, bottom: 30, left: 30 };
 
-const svg = d3.select("#temporal-chart")
+const svg1 = d3.select("#temporal-chart")
   .append("svg")
   .attr("width", 1000)
   .attr("height", 600);
@@ -22,7 +22,7 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
 
 function createChart(chartData, column) {
   chartData = cleanData(chartData, column);
-  svg.selectAll("*").remove(); // remove all elements before creating the chart
+  svg1.selectAll("*").remove(); // remove all elements before creating the chart
 
   const columnByYear = d3.group(chartData, d => d.year);
   const aggregatedData = Array.from(columnByYear, ([year, values]) => {
@@ -51,15 +51,15 @@ function createChart(chartData, column) {
     .x(d => xScale(d.year))
     .y(d => yScale(d.value));
 
-  svg.append("g")
+  svg1.append("g")
     .attr("transform", `translate(0, ${500 - margin.bottom})`)
     .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
-  svg.append("g")
+  svg1.append("g")
     .attr("transform", `translate(${margin.left}, 0)`)
     .call(d3.axisLeft(yScale));
 
-  svg.append("text")
+  svg1.append("text")
     .attr("x", 50)
     .attr("y", margin.top-10)
     .attr("text-anchor", "left")
@@ -68,7 +68,7 @@ function createChart(chartData, column) {
     .attr("font-size", "14px")
     .text("Average " + column);
 
-  svg.append("text")
+  svg1.append("text")
     .attr("x", 920)
     .attr("y", 475)
     .attr("text-anchor", "middle")
@@ -77,7 +77,7 @@ function createChart(chartData, column) {
     .attr("font-size", "14px")
     .text("Year");
 
-  const path = svg.append("path")
+  const path = svg1.append("path")
     .datum(aggregatedData)
     .attr("fill", "none")
     .attr("stroke", "#1DB954")
