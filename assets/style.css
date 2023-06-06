@@ -128,3 +128,31 @@ a:visited {
 .clear-button.visible {
   display: inline-block;
 }
+
+.highlight {
+  /* opacity */
+  fill: #1DB954;
+}
+
+legend {
+  background-color: #1DB954;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+input {
+  margin: 0.4rem;
+}
+
+fieldset {
+  height: fit-content;
+  text-align: left;
+  flex: 0 0 auto;
+}
+
+#temporal-chart {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-left: 150px;
+}

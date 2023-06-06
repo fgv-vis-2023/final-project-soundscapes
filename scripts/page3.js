@@ -189,12 +189,13 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         { value: data.energy, label: "Energy" }
     ];
 
-    var gPaths = g.selectAll("path")
+    var gPaths = g.selectAll("g.arc")
         .data(arcData);
 
-    gPaths.enter()
-        .append("path")
-        .merge(gPaths)
+    var gEnter = gPaths.enter().append("g")
+        .attr("class", "arc");
+
+    gEnter.append("path")
         .transition().duration(500)
         .attrTween("d", arcTween)
         .attr("fill", function (d, i) {
@@ -202,10 +203,12 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         })
         .attr("stroke", "#fff");
 
-    gPaths.exit().remove();
+    gEnter.append("title")
+    .text(function (d) {
+        return d.label + ": " + d.value;
+    });
 
-    gPaths.append("title")
-        .text(d => d.label + ": " + d.value);
+    gPaths.exit().remove();
 
     textGroup.selectAll("*").remove(); // Clear previous text elements
 

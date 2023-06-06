@@ -47,8 +47,29 @@
 
     <!-- 3. Temporal Analysis -->
     <section id="section3" class="nav-section section">
-      <div data-aos="fade-in">
-        <script src="./scripts/page1.js"></script>
+      <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
+        <h2 style="padding-top: 10vh">How has music changed over time?</h2>
+        <div id="temporal-chart">
+          <fieldset>
+            <legend>Select a feature</legend>
+            <label>
+              <input type="radio" name="column" value="duration" checked> Duration
+            </label>
+            <br>
+            <label>
+              <input type="radio" name="column" value="danceability"> Danceability
+            </label>
+            <br>
+            <label>
+              <input type="radio" name="column" value="energy"> Energy
+            </label>
+            <br>
+            <label>
+              <input type="radio" name="column" value="speechiness"> Speechiness
+            </label>
+          </fieldset>     
+          <script src="./scripts/page1.js"></script>
+        </div>
       </div>
     </section>
 
