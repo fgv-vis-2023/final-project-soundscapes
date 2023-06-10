@@ -43,9 +43,9 @@ clearButton.onclick = () => {
     inputBox.value = "";
     resultBox.innerHTML = "";
     clearButton.classList.remove("visible");
-    updateDonutChart(null);
+    updateDonutChart(null, null, null, null, null);
     textGroup.selectAll("text").remove();
-    g.selectAll("text").remove();
+    g.selectAll("text").remove();    
 }
 
 var arcGenerator = d3.arc()
@@ -165,6 +165,7 @@ function retrieveMusicData(selectedMusic){
                         year: parseFloat(result.year)
                     };
                     resolve(features);
+                    console.log("Dados da música recuperados com sucesso:", features);
                 } else {
                     reject("Música não encontrada");
                 }
@@ -177,9 +178,17 @@ function retrieveMusicData(selectedMusic){
 }
 
 function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popularityValue, year) {
-    if (data == null) {
-        g.selectAll("path").remove();
-        return;
+    if (!data) {
+        data = {
+            speechiness: 0,
+            danceability: 0,
+            valence: 0,
+            energy: 0
+        };
+        selectedMusicTitle = "";
+        selectedMusicArtist = "";
+        popularityValue = 0;
+        year = 0;
     }
 
     var arcData = [
@@ -192,23 +201,26 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
     var gPaths = g.selectAll("g.arc")
         .data(arcData);
 
+    gPaths.exit().remove();
+
     var gEnter = gPaths.enter().append("g")
         .attr("class", "arc");
 
     gEnter.append("path")
-        .transition().duration(500)
-        .attrTween("d", arcTween)
         .attr("fill", function (d, i) {
         return color(d.value);
         })
-        .attr("stroke", "#fff");
+        .attr("stroke", "#fff")
+        .merge(gPaths.select("path")) // merge existing and enter elements
+        .transition().duration(500)
+        .attrTween("d", arcTween);
 
     gEnter.append("title")
     .text(function (d) {
         return d.label + ": " + d.value;
     });
 
-    gPaths.exit().remove();
+    //gPaths.exit().remove();
 
     textGroup.selectAll("*").remove(); // Clear previous text elements
 
@@ -230,8 +242,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
     function arcTween(d, i) {
         var interpolate = d3.interpolate(0, d.value);
         return function (t) {
-        d.value = interpolate(t);
-        return arcGenerator(d, i);
+            d.value = interpolate(t);
+            return arcGenerator(d, i);
         };
     }
 
