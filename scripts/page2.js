@@ -25,19 +25,19 @@ function cleanData(data) {
 
 d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(data => {
     // Prepare data by splitting the string in the "genre" column
-    data = cleanData(data);
+    data = cleanData(data).filter(d => d.genre !== "set()");
 
-    var genrePopularity = d3.rollup(data, v => d3.mean(v, c => c.popularity), d => d.genre);
-    console.log(genrePopularity)
+    var genreCount = d3.rollup(data, v => v.length, d => d.genre);
+    var sortedData = Array.from(genreCount.entries()).sort((a, b) => d3.descending(b[1], a[1]));
 
     // Define scales
     var xScale = d3.scaleLinear()
-        .domain([0, d3.max(genrePopularity.values())])
+        .domain([0, d3.max(genreCount.values())])
         .range([50, width - 200])
         .nice();
 
     var yScale = d3.scaleBand()
-        .domain([...new Set(data.map(d => d.genre))])
+        .domain(sortedData.map(d => d[0]))
         .range([420, 20])
         .padding(0.2);
 
@@ -52,7 +52,9 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
 
     svg.append('g')
         .attr('transform', `translate(${MARGIN_LEFT}, 0)`)
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale))
+        .selectAll("text")
+            .attr("font-size", "12px");
 
     var bars = svg
         .selectAll("rect")
@@ -60,7 +62,7 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
         .join("rect")
         .attr("x", xScale(0)+50)
         .attr("y", d => yScale(d[0]))
-        .attr("width", d => xScale(genrePopularity.get(d[0])) - xScale(0))
+        .attr("width", d => xScale(genreCount.get(d[0])) - xScale(0))
         .attr("height", yScale.bandwidth())
         .attr("fill", "#1DB954")
         .attr("stroke", "white")
@@ -94,5 +96,5 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
 
     bars
         .append('title')
-        .text(d => `Genre: ${d[0].toUpperCase()} \nAverage Popularity: ${Math.round(genrePopularity.get(d[0]) * 100) / 100}`);
+        .text(d => `Average Popularity: ${genreCount.get(d[0])}`);
 });
