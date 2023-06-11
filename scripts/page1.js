@@ -17,7 +17,7 @@ let chartData;
 
 d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(data => {
   chartData = data;
-  createChart(chartData, "duration"); // Pode definir a coluna inicial aqui
+  createChart(chartData, "duration");
 });
 
 function createChart(chartData, column) {
@@ -44,7 +44,7 @@ function createChart(chartData, column) {
     .range([margin.left, 900 - margin.right]);
   
   const yScale = d3.scaleLinear()
-    .domain(d3.extent(aggregatedData, d => d.value))
+    .domain([0, d3.max(aggregatedData, d => d.value) * 1.1])
     .range([500 - margin.bottom, margin.top]);
 
   const line = d3.line()
@@ -60,7 +60,7 @@ function createChart(chartData, column) {
     .call(d3.axisLeft(yScale));
 
   svg1.append("text")
-    .attr("x", 50)
+    .attr("x", 30)
     .attr("y", margin.top-10)
     .attr("text-anchor", "left")
     .attr("fill", "white")
@@ -84,6 +84,43 @@ function createChart(chartData, column) {
     .attr("stroke-width", 3)
     .attr("d", line);
 
+  const circles = svg1.selectAll("circle")
+    .data(aggregatedData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xScale(d.year))
+    .attr("cy", d => yScale(d.value))
+    .attr("r", 0)
+    .attr("fill", "#1DB954")
+    .on("mouseover", (event, d) => {
+      d3.select(event.currentTarget)
+        .attr("fill", "#FFFFFF")
+        .attr("r", 6);
+
+      svg1.append("text")
+        .attr("id", "tooltip")
+        .attr("x", xScale(d.year))
+        .attr("y", yScale(d.value) - 12)
+        .attr("text-anchor", "left")
+        .attr("fill", "#FFFFFF")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .text(d.year + ": " + d.value.toFixed(2));
+    })
+    .on("mouseout", (event, d) => {
+      d3.select(event.currentTarget)
+        .attr("fill", "#1DB954")
+        .attr("r", 2);
+
+      d3.select("#tooltip").remove();
+    });
+
+  circles.transition()
+    .delay((d, i) => i * 25) // delay for each circle to appear gradually 
+    .duration(2000)
+    .attr("r", 2);
+
+
   const totalLength = path.node().getTotalLength();
 
   path.attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -100,4 +137,3 @@ columnRadios.forEach(radio => {
     createChart(chartData, selectedColumn);
   });
 });
-

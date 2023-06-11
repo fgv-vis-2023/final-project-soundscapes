@@ -9,17 +9,17 @@ const clearButton = document.querySelector(".clear-button");
 // ---------- svg elements -----------
 const svg3 = d3.select("#features-chart")
     .append("svg")
-    .attr("width", 1100)
+    .attr("width", 1000)
     .attr("height", 600);
 
 const textGroup = svg3.append("g")
-    .attr("transform", "translate(0,60)");
+    .attr("transform", "translate(500,60)");
 
 const textGroup2 = svg3.append("g")
-    .attr("transform", "translate(0,140)");
+    .attr("transform", "translate(800,200)");
 
 const g = svg3.append("g")
-    .attr("transform", "translate(850," + (svg3.attr("height") / 2) + ")");
+    .attr("transform", "translate(500,325)");
 
 // --------- data variables ----------
 let musicData = [];
@@ -49,8 +49,8 @@ clearButton.onclick = () => {
 }
 
 var arcGenerator = d3.arc()
-  .innerRadius((d, idx) => 120 + 25 * idx)
-  .outerRadius((d, idx) => 140 + 25 * idx)
+  .innerRadius((d, idx) => 115 + 25 * idx) 
+  .outerRadius((d, idx) => 135 + 25 * idx)
   .startAngle(d => 0)
   .endAngle(d => d.value * 2 * Math.PI)
   .padAngle(0.005) 
@@ -60,46 +60,6 @@ var arcGenerator = d3.arc()
 var color = d3.scaleOrdinal()
     .domain([0, 1, 2, 3])
     .range(["#42FFEF", "#17B5AC", "#1EBA55", "#83D117"]);
-
-// add features text
-textGroup2.append("text")
-    .attr("x", 0)
-    .attr("y", 5)
-    .attr("font-size", "20px")
-    .attr("font-weight", "bold")
-    .attr("fill", "#fff")
-    .text("Music Features (0 - 1)");
-
-var textContent = [
-    "",
-    "Energy: It measures the intensity and activity level of a track.",
-    "Higher values indicate more energetic and lively music.",
-    "",
-    "Valence: It describes the musical positiveness conveyed by a track.",
-    "Higher valence values indicate more positive and uplifting music,",
-    "while lower values indicate more negative or melancholic music.",
-    "",
-    "Danceability: It assesses how suitable a track is for dancing based",
-    "on a combination of musical elements including tempo, rhythm",
-    "stability, beat strength, and overall regularity.",
-    "",
-    "Speechiness: It indicates the presence of spoken words in a track.",
-    "A value close to 1.0 suggests that the track primarily consists of",
-    "spoken words, such as talk shows or poetry. Values between",
-    "0.33 and 0.66 represent tracks that may contain both music and",
-    "speech, including genres like rap. Values below 0.33 mostly",
-    "represent music without significant speech-like elements."
-];
-
-textGroup2.selectAll("text")
-    .data(textContent)
-    .enter()
-    .append("text")
-    .attr("x", 0)
-    .attr("y", (d, i) => 30 + i * 20)
-    .attr("font-size", "16px")
-    .attr("fill", "#fff")
-    .text(d => d);
 
 // ------------ functions ------------
 function filterData() {
@@ -141,7 +101,12 @@ function selectInput(list){
         const popularityValue = selectedData.popularity;
         const selectedMusicArtist = selectedData.artist;
         const year = selectedData.year;
+        const explicit = selectedData.explicit;
         updateDonutChart(selectedData, selectedMusicTitle, selectedMusicArtist, popularityValue, year);
+        gPaths.select("title")
+        .text(function (d) {
+            return d.label + ": " + d.value;
+        });
     }).catch((error) => {
         console.log(error);
     });
@@ -162,10 +127,10 @@ function retrieveMusicData(selectedMusic){
                         energy: parseFloat(result.energy),
                         artist: result.artist,
                         popularity: parseFloat(result.popularity),
-                        year: parseFloat(result.year)
+                        year: parseFloat(result.year),
+                        explicit: result.explicit
                     };
                     resolve(features);
-                    console.log("Dados da música recuperados com sucesso:", features);
                 } else {
                     reject("Música não encontrada");
                 }
@@ -207,7 +172,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attr("class", "arc");
 
     gEnter.append("path")
-        .attr("fill", function (d, i) {
+        .attr("fill", function (d) {
         return color(d.value);
         })
         .attr("stroke", "#fff")
@@ -216,11 +181,10 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attrTween("d", arcTween);
 
     gEnter.append("title")
-    .text(function (d) {
-        return d.label + ": " + d.value;
+        .merge(gPaths.select("title")) // merge existing and enter elements
+        .text(function (d) {
+            return d.label + ": " + d.value;
     });
-
-    //gPaths.exit().remove();
 
     textGroup.selectAll("*").remove(); // Clear previous text elements
 
@@ -230,6 +194,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attr("font-size", "22px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
+        .attr("text-anchor", "middle")
         .text(selectedMusicTitle);
 
     textGroup.append("text")
@@ -237,7 +202,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
         .attr("y", 28)
         .attr("font-size", "18px")
         .attr("fill", "#fff")
-        .text("by " + selectedMusicArtist + " | Year: " + year);
+        .attr("text-anchor", "middle")
+        .text("by " + selectedMusicArtist + " | Release Year: " + year);
 
     function arcTween(d, i) {
         var interpolate = d3.interpolate(0, d.value);

@@ -54,6 +54,64 @@ a:visited {
   height: 100vh;
 }
 
+.info-button {
+  background-color: white;
+  border: none;
+  color: #1DB954;
+  padding: 10px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.info-card {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: auto;
+  background-color: #f9f9f9eb;
+  border-radius: 5px;
+  padding: 16px;
+  color: black;
+}
+
+.info-card.show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-card .info-content {
+  margin-bottom: 20px;
+}
+
+.info-card h2 {
+  font-size: 18px;
+  color: #1DB954;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.info-card p {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.close-button {
+  background-color: #1DB954;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .line {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -156,4 +214,13 @@ fieldset {
   flex-direction: row-reverse;
   justify-content: flex-end;
   margin-left: 150px;
+}
+
+#section4 svg {
+  margin-left: 150px;
+}
+
+.arc path:hover {
+  fill: white;
+  cursor: pointer;
 }
