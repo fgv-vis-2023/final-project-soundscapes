@@ -216,10 +216,6 @@ fieldset {
   margin-left: 150px;
 }
 
-#section4 svg {
-  margin-left: 150px;
-}
-
 .arc path:hover {
   fill: white;
   cursor: pointer;
