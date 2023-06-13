@@ -14,7 +14,7 @@
     <!-- Load AOS library for animation on scroll-->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
   </head>
 
   <body>
@@ -24,8 +24,8 @@
         background-position: center; background-repeat: no-repeat; background-size:cover;">
         <div style="padding-top: 20vh; padding-bottom: 56vh;">
           <div style="padding-left: 10%">
-            <h1 data-aos="fade-in" data-aos-duration="1500" data-aos-delay="200" style="font-size: 50px; margin-bottom: 0.3em;">SoundScapes</h1>
-            <h2 data-aos="fade-in" data-aos-duration="2000" data-aos-delay="600" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
+            <h1 data-aos="fade-in" data-aos-duration="1200" data-aos-delay="100" style="font-size: 50px; margin-bottom: 0.3em;">SoundScapes</h1>
+            <h2 data-aos="fade-in" data-aos-duration="1800" data-aos-delay="400" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
           </div>
         </div>
         <a href="#section2" class="scroll-down image-replace">scroll down</a>
@@ -67,6 +67,10 @@
               <p>
                 <b>• Valence (0-1):</b> Describes the musical positiveness conveyed by a track. Higher valence values indicate 
                 more positive and uplifting music, while lower values indicate more negative or melancholic music.
+              </p>
+              <p>
+                <b> • Accousticness (0-1):</b> A confidence measure of whether the track is acoustic. 1.0 represents high confidence
+                the track is acoustic.
               </p>
             </div>
             <button id="close-button" class="close-button">Close</button>
@@ -131,8 +135,8 @@
     <!-- 5. Music Features -->
     <section id="section5" class="nav-section section">
       <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
-        <h2 style="padding-top: 5vh">What about your favorite music?</h2>
-        <h3>Search for a song to discover more about it!</h3>
+        <h2 style="padding-top: 2vh">What about your favorite music?</h2>
+        <h4>Search for a song to discover more about it!</h4>
         <div class="search-input">
           <input type="text" placeholder="Type to search music..." autocomplete="off">
           <button class="clear-button">Clear</button>

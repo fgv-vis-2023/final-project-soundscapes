@@ -1,6 +1,3 @@
-// TODO: add comments
-// TODO: add Tooltip to donut chart, with the feature name and value and color
-
 // ----------- variables ------------
 const resultBox = document.querySelector(".result-box");
 const inputBox = document.querySelector(".search-input input");
@@ -9,17 +6,17 @@ const clearButton = document.querySelector(".clear-button");
 // ---------- svg elements -----------
 const svg3 = d3.select("#features-chart")
     .append("svg")
-    .attr("width", 1000)
+    .attr("width", 1100)
     .attr("height", 600);
 
 const textGroup = svg3.append("g")
-    .attr("transform", "translate(500,60)");
+    .attr("transform", "translate(370,49)");
 
 const textGroup2 = svg3.append("g")
-    .attr("transform", "translate(800,200)");
+    .attr("transform", "translate(10,122)");
 
 const g = svg3.append("g")
-    .attr("transform", "translate(500,325)");
+    .attr("transform", "translate(820,300)");
 
 // --------- data variables ----------
 let musicData = [];
@@ -44,13 +41,12 @@ clearButton.onclick = () => {
     resultBox.innerHTML = "";
     clearButton.classList.remove("visible");
     updateDonutChart(null, null, null, null, null);
-    textGroup.selectAll("text").remove();
-    g.selectAll("text").remove();    
+    g.selectAll("*").remove();
 }
 
 var arcGenerator = d3.arc()
-  .innerRadius((d, idx) => 115 + 25 * idx) 
-  .outerRadius((d, idx) => 135 + 25 * idx)
+  .innerRadius((d, idx) => 110 + 25 * idx)
+  .outerRadius((d, idx) => 130 + 25 * idx)
   .startAngle(d => 0)
   .endAngle(d => d.value * 2 * Math.PI)
   .padAngle(0.005) 
@@ -58,8 +54,8 @@ var arcGenerator = d3.arc()
   .cornerRadius(4);
 
 var color = d3.scaleOrdinal()
-    .domain([0, 1, 2, 3])
-    .range(["#42FFEF", "#17B5AC", "#1EBA55", "#83D117"]);
+    .domain([0, 1, 2, 3, 4])
+    .range(["#0782C7", "#17D1B9", "#1DB954", "#3ED117", "#ADC716"]);
 
 // ------------ functions ------------
 function filterData() {
@@ -101,12 +97,7 @@ function selectInput(list){
         const popularityValue = selectedData.popularity;
         const selectedMusicArtist = selectedData.artist;
         const year = selectedData.year;
-        const explicit = selectedData.explicit;
         updateDonutChart(selectedData, selectedMusicTitle, selectedMusicArtist, popularityValue, year);
-        gPaths.select("title")
-        .text(function (d) {
-            return d.label + ": " + d.value;
-        });
     }).catch((error) => {
         console.log(error);
     });
@@ -122,6 +113,7 @@ function retrieveMusicData(selectedMusic){
                     // get features
                     const features = {
                         speechiness: parseFloat(result.speechiness),
+                        acousticness: parseFloat(result.acousticness),
                         danceability: parseFloat(result.danceability),
                         valence: parseFloat(result.valence),
                         energy: parseFloat(result.energy),
@@ -131,6 +123,7 @@ function retrieveMusicData(selectedMusic){
                         explicit: result.explicit
                     };
                     resolve(features);
+                    console.log(features)
                 } else {
                     reject("Música não encontrada");
                 }
@@ -142,22 +135,80 @@ function retrieveMusicData(selectedMusic){
     });
 }
 
+function getNumberOfSongsInTopCharts(artist) {
+    // null or undefined
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const uniqueSongs = new Set(filteredSongs.map(music => music.song));
+    return uniqueSongs.size;
+}
+
+function getMeanAcousticness(artist) {
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const getMeanAcousticness = d3.mean(filteredSongs, music => parseFloat(music.acousticness));
+    return getMeanAcousticness.toFixed(2);
+}
+
+function getMeanEnergy(artist) {
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const meanEnergy = d3.mean(filteredSongs, music => parseFloat(music.energy));
+    return meanEnergy.toFixed(2);
+}
+
+function getMeanValence(artist) {
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const meanValence = d3.mean(filteredSongs, music => parseFloat(music.valence));
+    return meanValence.toFixed(2);
+}
+
+function getMeanDanceability(artist) {
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const meanDanceability = d3.mean(filteredSongs, music => parseFloat(music.danceability));
+    return meanDanceability.toFixed(2);
+}
+
+function getMeanSpeechiness(artist) {
+    if (!artist) {
+        return 0;
+    }
+    const filteredSongs = musicData.filter(music => music.artist === artist);
+    const meanSpeechiness = d3.mean(filteredSongs, music => parseFloat(music.speechiness));
+    return meanSpeechiness.toFixed(2);
+}
+
 function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popularityValue, year) {
     if (!data) {
         data = {
             speechiness: 0,
+            acousticness: 0,
             danceability: 0,
             valence: 0,
             energy: 0
         };
+        g.selectAll("*").remove();
         selectedMusicTitle = "";
         selectedMusicArtist = "";
-        popularityValue = 0;
-        year = 0;
+        popularityValue = "";
+        year = 0;        
     }
 
     var arcData = [
         { value: data.speechiness, label: "Speechiness" },
+        { value: data.acousticness, label: "Acousticness" },
         { value: data.danceability, label: "Danceability" },
         { value: data.valence, label: "Valence" },
         { value: data.energy, label: "Energy" }
@@ -186,12 +237,14 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
             return d.label + ": " + d.value;
     });
 
-    textGroup.selectAll("*").remove(); // Clear previous text elements
+    // Clear previous text elements
+    textGroup.selectAll("text").remove(); 
+    textGroup2.selectAll("text").remove();
 
     textGroup.append("text")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("font-size", "22px")
+        .attr("font-size", "24px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
@@ -199,11 +252,130 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup.append("text")
         .attr("x", 0)
-        .attr("y", 28)
-        .attr("font-size", "18px")
+        .attr("y", 26)
+        .attr("font-size", "17px")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
-        .text("by " + selectedMusicArtist + " | Release Year: " + year);
+        .text(selectedMusicArtist ? "by " + selectedMusicArtist + " | Release Year: " + year : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("font-size", "19px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? selectedMusicArtist + " Information" : "Select a song!");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 29)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Number of Songs in Top Charts: " + getNumberOfSongsInTopCharts(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 59)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Mean Energy: " + getMeanEnergy(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 89)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Mean Valence: " + getMeanValence(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 119)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Mean Danceability: " + getMeanDanceability(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 149)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Mean Acousticness: " + getMeanAcousticness(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 179)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("• Mean Speechiness: " + getMeanSpeechiness(selectedMusicArtist));
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 220)
+        .attr("font-size", "17px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#ADC716")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? (data.energy > getMeanEnergy(selectedMusicArtist) || data.energy > 0.5 ? "This is an energetic song for " + selectedMusicArtist + "!" : "For " + selectedMusicArtist + ", this is a calm song.") : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 250)
+        .attr("font-size", "17px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#3ED117")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? (data.valence < getMeanValence(selectedMusicArtist) || data.valence < 0.33 ? "Oops! Based on this artist's songs, this is kind of a downer..." : "Yay! This is one of the most cheerful songs from this artist!") : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 280)
+        .attr("font-size", "17px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#1EBA55")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? (data.danceability > getMeanDanceability(selectedMusicArtist) ? "Like dancing? This is a good song for you!" : "If you want to dance, there are better songs from this artist.") : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 310)
+        .attr("font-size", "17px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#17D1B9")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? (data.acousticness > getMeanAcousticness(selectedMusicArtist) ? "This is a very acoustic song for " + selectedMusicArtist + "!" : "This song is not very acoustic for " + selectedMusicArtist + ".") : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 340)
+        .attr("font-size", "17px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#0782C7")
+        .attr("text-anchor", "left")
+        .text(selectedMusicArtist ? (data.speechiness > getMeanSpeechiness(selectedMusicArtist) ? "This song has a lot of words for " + selectedMusicArtist + "!" : selectedMusicArtist + " is more about the music here than the words.") : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 385)
+        .attr("font-size", "15px")
+        .attr("font-style", "italic")
+        .attr("fill", "red")
+        .attr("text-anchor", "left")
+        .text(data.explicit === "True" ? "This song is explicit." : "");
+
+    textGroup2.append("text")
+        .attr("x", 0)
+        .attr("y", 426)
+        .attr("font-size", "15px")
+        .attr("fill", "#fff")
+        .attr("text-anchor", "left")
+        .text("*Popularity (0-100): The higher the value the more popular the song is.");
 
     function arcTween(d, i) {
         var interpolate = d3.interpolate(0, d.value);
@@ -217,12 +389,12 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
     g.selectAll("text").remove(); // Clear previous text elements
 
     g.append("text")
-        .attr("x", -50)
+        .attr("x", -34)
         .attr("y", 5)
         .attr("font-size", "50px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
-        .text(popularityValue + "%");
+        .text(popularityValue);
 
     g.append("text")
         .attr("x", -48)
