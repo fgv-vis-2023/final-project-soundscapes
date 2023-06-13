@@ -1,4 +1,4 @@
-const width = (document.body.offsetWidth) * 0.8;
+const width = 1000;
 const height = 520;
 const MARGIN_LEFT = 100;
 const MARGIN_RIGHT = 30;
@@ -41,7 +41,10 @@ function cleanData(data) {
 d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes/main/data/songs.csv").then(csvData => {
     // Prepare data by splitting the string in the "genre" column
     data = cleanData(csvData).filter(d => d.genre !== "set()");
+    drawBarChart(data);
+});
 
+function drawBarChart(data) {
     var genreCount = d3.rollup(data, v => v.length, d => d.genre);
     var sortedData = Array.from(genreCount.entries()).sort((a, b) => d3.descending(b[1], a[1]));
 
@@ -65,7 +68,7 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
         .join("rect")
         .attr("x", xScale(0)+50)
         .attr("y", d => yScale(d[0]))
-        .attr("width", d => xScale(genreCount.get(d[0])) - xScale(0))
+        .attr("width", 0)
         .attr("height", yScale.bandwidth())
         .attr("fill", "#1DB954")
         .attr("stroke", "white")
@@ -85,6 +88,10 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
             handleClick(d);
         });
 
+    bars.transition()
+        .duration(1000)
+        .attr("width", d => xScale(genreCount.get(d[0])) - xScale(0));
+
     svg.append("text")
         .attr("x", MARGIN_LEFT)
         .attr("y", MARGIN_TOP)
@@ -101,19 +108,18 @@ d3.csv("https://raw.githubusercontent.com/fgv-vis-2023/final-project-soundscapes
         .attr("fill", "white")
         .attr("font-weight", "bold")
         .attr("font-size", "14px")
-        .text("Average Popularity");
+        .text("Number of Songs");
 
     bars
         .append('title')
-        .text(d => `Average Popularity: ${genreCount.get(d[0])}`);
-});
+        .text(d => `Number of Songs: ${genreCount.get(d[0])}`);
+};
 
 // This function updates the scatter plot with the selected genre
 function handleClick(d) {
     var selectedGenre = d[0];
-    console.log(selectedGenre);
     var selectedData = data.filter(item => item.genre === selectedGenre);
-    console.log(selectedData);
+    
     // Call a function to update the chart with the selected data
     updateScatterPlot(selectedData);
 }
@@ -122,6 +128,23 @@ function handleClick(d) {
 function updateScatterPlot(selectedData) {
     d3.select('#genresGraph svg').selectAll("*").remove(); // Remove the previous svg
     svg.selectAll("circle").remove(); // Remove previous circles
+
+    var backButton = svg.append("text")
+    .attr("x", 850)
+    .attr("y", 30)
+    .attr("text-anchor", "left")
+    .attr("fill", "#1DB954")
+    .attr("font-weight", "bold")
+    .attr("font-size", "15px")
+    .attr("background-color", "white")
+    .attr("font-size", "12px")
+    .attr("cursor", "pointer")
+    .text("Back to Bar Chart")
+    .on("click", function() {
+        d3.select('#genresGraph svg').selectAll("*").remove();
+        drawBarChart(data);
+    });
+
 
     // Update scales' domains
     yScale = d3.scaleLinear()

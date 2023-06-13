@@ -27,8 +27,8 @@
             <h1 data-aos="fade-in" data-aos-duration="1500" data-aos-delay="200" style="font-size: 50px; margin-bottom: 0.3em;">SoundScapes</h1>
             <h2 data-aos="fade-in" data-aos-duration="2000" data-aos-delay="600" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
           </div>
-          <a href="#section2" class="scroll-down image-replace">scroll down</a>
         </div>
+        <a href="#section2" class="scroll-down image-replace">scroll down</a>
       </div>
     </section>
 
@@ -80,7 +80,7 @@
     <!-- 3. Temporal Analysis -->
     <section id="section3" class="nav-section section">
       <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
-        <h2 style="padding-top: 8vh">How has music changed over time?</h2>
+        <h2 style="padding-top: 5vh">How has music changed over time?</h2>
         <div style="padding-top: 5vh" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="600" id="temporal-chart">
           <fieldset>
             <legend>Select a feature</legend>
@@ -107,13 +107,12 @@
             <label>
               <input type="radio" name="column" value="tempo"> Tempo
             </label>
-            <br>
-            <label>
-              <input type="radio" name="column" value="all"> All Features
-            </label>
           </fieldset> 
-          <script src="./scripts/page1.js"></script>
+          <div class="text-box">
+            <div id="description-text"></div>
+          </div>
         </div>
+        <a href="#section4" class="scroll-down image-replace" style="left: 84%">scroll down</a>
       </div>
     </section>
 
@@ -121,12 +120,12 @@
     <section id="section4" class="nav-section section">
       <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
         <h2 style="padding-top: 5vh">What are the most popular genres?</h2>
-        <h3>Here, popularity is considered by the number of songs of each genre in the Spotify Top Hits list of the past two decades.</h3>
-        <div style="padding-top: 5vh" id="genresGraph">
-          <script src="./scripts/page2.js"></script>
+        <h3>Here, popularity is considered by the number of songs of each genre in the Spotify Top Hits list in the past two decades.</h3>
+        <div style="padding-top: 5vh; padding-bottom: 3vh;" id="genresGraph">
+          <button id="backToBarChartButton" class="back-button hidden" onclick="showBarChart()">Voltar</button>
         </div>
+        <a href="#section5" class="scroll-down image-replace">scroll down</a>
       </div>
-
     </section>
 
     <!-- 5. Music Features -->
@@ -141,10 +140,7 @@
             <!-- here list are inserted from javascript -->
           </div>
         </div>
-        <div id="features-chart">
-          <script src="./scripts/page3.js"></script>
-        </div>
-        <div id="tooltip" style="opacity: 0;"></div>
+        <div id="features-chart"></div>
       </div>
     </section>
 
@@ -159,6 +155,11 @@
         <a href="https://dribbble.com/shots/15988331-Spotify-Animation">Spotify Animation by Dribble</a></p>
       </div>
     </section>
+
+    <!-- Load scripts -->
+    <script src="./scripts/page1.js"></script>
+    <script src="./scripts/page2.js"></script>
+    <script src="./scripts/page3.js"></script>
 
     <!-- Load AOS Animation on Scroll library and initialize it -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

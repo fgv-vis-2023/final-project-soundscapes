@@ -209,6 +209,10 @@ fieldset {
   flex: 0 0 auto;
 }
 
+fieldset legend {
+  text-align: center;
+}
+
 #temporal-chart {
   display: flex;
   flex-direction: row-reverse;
@@ -216,7 +220,31 @@ fieldset {
   margin-left: 150px;
 }
 
+.text-box {
+  margin-top: 10px;
+  text-align: center;
+  width: 312px;
+  height: auto;
+  position: fixed;
+  top: 37%;
+  left: 70.5%;
+}
+
+#description-text {
+  font-size: 15px;
+  margin-top: 5px;
+  padding: 13px;
+  background-color: none;
+  border: #1DB954 solid 2px;
+  border-radius: 5px;
+  color: white;
+}
+
 .arc path:hover {
   fill: white;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
