@@ -28,10 +28,10 @@ a:visited {
   
 .scroll-down {
   position: absolute;
-  left: 50%;
-  bottom: 20px;
-  width: 30px;
-  height: 40px;
+  left: 50vw;
+  bottom: 4vh;
+  width: 4vw;
+  height: 8.5vh;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
@@ -50,7 +50,7 @@ a:visited {
 }
 
 .section {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -69,10 +69,10 @@ a:visited {
 .info-card {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 50vh;
+  left: 50vw;
   transform: translate(-50%, -50%);
-  width: 600px;
+  width: 40vw;
   height: auto;
   background-color: #f9f9f9eb;
   border-radius: 5px;
@@ -121,7 +121,7 @@ a:visited {
 
 .search-input input{
   height: 32px;
-  width: 35%;
+  width: 35vw;
   text-align: center;
   outline: none;
   border: none;
@@ -134,9 +134,9 @@ a:visited {
 
 .search-input .result-box{
   position: absolute;
-  width: 34%;
+  width: 34vw;
   padding: 0;
-  max-height: 250px;
+  max-height: 52vh;
   overflow-y: auto;
 }
 
@@ -145,7 +145,7 @@ a:visited {
   border: lightgray solid 0.8px;
   border-radius: 5px;
   padding: 0;
-  left: 33%;
+  left: 33vw;
 }
 
 .result-box li{
@@ -170,13 +170,13 @@ a:visited {
   padding: 5px;
   border-radius: 5px;
   background: white;
-  height: 26px;
+  height: 3.5vh;
   width: auto;
   border: none;
   font-size: 12px;
   cursor: pointer;
   margin-left: 5px;
-  top: 111px;
+  top: 15vh;
 }
 
 .clear-button:hover {
@@ -206,7 +206,7 @@ input {
 fieldset {
   height: fit-content;
   text-align: left;
-  flex: 0 0 auto;
+  margin-left: 1.5vw;
 }
 
 fieldset legend {
@@ -217,17 +217,17 @@ fieldset legend {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-  margin-left: 150px;
+  margin-left: 8vw;
 }
 
 .text-box {
   margin-top: 10px;
   text-align: center;
-  width: 312px;
+  width: 310px;
   height: auto;
   position: fixed;
-  top: 37%;
-  left: 70.5%;
+  top: 33vh;
+  left: 64vw;
 }
 
 #description-text {

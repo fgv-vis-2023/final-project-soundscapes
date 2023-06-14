@@ -145,7 +145,6 @@ function updateScatterPlot(selectedData) {
         drawBarChart(data);
     });
 
-
     // Update scales' domains
     yScale = d3.scaleLinear()
         .range([height - MARGIN_DOWN - 50, MARGIN_TOP])
