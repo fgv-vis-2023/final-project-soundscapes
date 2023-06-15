@@ -4,11 +4,6 @@ html, body {
     color: white;
   }
 
-img {
-  float: right;
-  vertical-align: text-top;
-}
-
 a {
   cursor: pointer;
   color: #1DB954;
@@ -29,7 +24,7 @@ a:visited {
 .scroll-down {
   position: absolute;
   left: 50vw;
-  bottom: 4vh;
+  bottom: 5vh;
   width: 4vw;
   height: 8.5vh;
   -webkit-transform: translateX(-50%);
