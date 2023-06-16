@@ -24,7 +24,7 @@ a:visited {
 .scroll-down {
   position: absolute;
   left: 50vw;
-  bottom: 5vh;
+  bottom: 3vh;
   width: 4vw;
   height: 8.5vh;
   -webkit-transform: translateX(-50%);
@@ -49,6 +49,12 @@ a:visited {
   height: 100vh;
 }
 
+.nav-section {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  /* gap: 20px; */
+}
+
 .info-button {
   background-color: white;
   border: none;
@@ -58,7 +64,7 @@ a:visited {
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 3vh;
 }
 
 .info-card {
@@ -107,16 +113,93 @@ a:visited {
   cursor: pointer;
 }
 
-.line {
+.img-column {
+  flex: 1;
+}
+
+.text-column {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+legend {
+  background-color: #1DB954;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+fieldset {
+  height: fit-content;
+  width: fit-content;
+  text-align: left;
+  margin-left: 1.5vw;
+}
+
+fieldset legend {
+  text-align: center;
+}
+
+.chart-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5vw;
+}
+
+.info-column {
+  flex: 1;
+  align-items: center;
+}
+
+#description-text {
+  font-size: 15px;
+  margin-top: 5px;
+  padding: 13px;
   margin-top: 10px;
-  margin-bottom: 10px;
-  height: 1px;
+  text-align: center;
+  width: 20vw;
+  height: fit-content;
+  border: #1DB954 solid 2px;
+  border-radius: 5px;
+  color: white;
+}
+
+.clear-button {
+  padding: 5px;
+  border-radius: 5px;
   background: white;
+  height: 3.5vh;
+  width: auto;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.clear-button:hover {
+  background: #1DB954;
+  color: white;
+}
+
+.clear-button.visible {
+  display: inline-block;
+}
+
+.search-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .search-input input{
   height: 32px;
-  width: 35vw;
+  width: 100%;
+  max-width: 480px;
   text-align: center;
   outline: none;
   border: none;
@@ -129,10 +212,13 @@ a:visited {
 
 .search-input .result-box{
   position: absolute;
-  width: 34vw;
+  width: 100%;
+  max-width: 470px;
   padding: 0;
-  max-height: 52vh;
+  max-height: 300px;
   overflow-y: auto;
+  top: 100%;
+  left: 33%;
 }
 
 .result-box {
@@ -159,77 +245,21 @@ a:visited {
   margin: 0;
 }
 
-.clear-button {
-  display: none;
-  position: absolute;
-  padding: 5px;
-  border-radius: 5px;
-  background: white;
-  height: 3.5vh;
-  width: auto;
-  border: none;
-  font-size: 12px;
-  cursor: pointer;
-  margin-left: 5px;
-  top: 15vh;
-}
-
-.clear-button:hover {
-  background: #1DB954;
-  color: white;
-}
-
-.clear-button.visible {
-  display: inline-block;
-}
-
 .highlight {
   /* opacity */
   fill: #1DB954;
 }
 
-legend {
-  background-color: #1DB954;
-  color: #fff;
-  padding: 3px 6px;
-}
-
-fieldset {
-  height: fit-content;
-  text-align: left;
-  margin-left: 1.5vw;
-}
-
-fieldset legend {
-  text-align: center;
-}
-
-#temporal-chart {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
-.text-box {
-  margin-top: 10px;
-  text-align: center;
-  width: 310px;
-  height: auto;
-}
-
-#description-text {
-  font-size: 15px;
-  margin-top: 5px;
-  padding: 13px;
-  background-color: none;
-  border: #1DB954 solid 2px;
-  border-radius: 5px;
-  color: white;
-}
-
 .arc path:hover {
   fill: white;
   cursor: pointer;
+}
+
+.line {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 1px;
+  background: white;
 }
 
 .hidden {

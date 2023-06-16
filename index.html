@@ -27,56 +27,60 @@
             <h2 data-aos="fade-in" data-aos-duration="1800" data-aos-delay="300" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
           </div>
         </div>
-        <a href="#section1" class="scroll-down image-replace">scroll down</a>
+        <a href="#section2" class="scroll-down image-replace">scroll down</a>
       </div>
     </section>
 
     <!-- 2. Context -->
     <section id="section2" class="nav-section section">
       <div data-aos="fade-in" data-aos-duration="1200" data-aos-delay="300" style="height: 100%;">
-        <div style="text-align: center; padding-left: 5vw;">
-          <img src="https://cdn.dribbble.com/users/2284480/screenshots/15988331/media/9335cd177db6913a8059ffc9d0c20e11.gif" alt="Spotify's logo GIF" style="float: right; height: 100vh; vertical-align: text-top;">
-          <h4 style="padding-top: 25vh;">
-            Using the audio statistics of the top 2000 tracks on Spotify from 2000-2019 
-            we investigated the trends in music over the past two decades.
-          </h4>
-          <h4>Now you can explore the data yourself and see how your favorite music compares to the rest of the world!</h4>
-          <br>
-          <h4>Before you start, let's learn about some features first:</h4>
-          <br>
-          <button id="info-button" class="info-button" data-aos="fade-in" data-aos-duration="1200" data-aos-delay="1000">Click Here</button>
-          <div id="info-card" class="info-card">
-            <div class="info-content">
-              <h2>Music Features</h2>
-              <p>
-                <b>• Tempo:</b> Beats per minute (BPM); how fast, medium, or slow a piece of music is played or sung.
-              </p>
-              <p>
-                <b>• Danceability (0-1):</b> Describes how suitable a track is for dancing based on a combination of musical 
-                elements including tempo, rhythm stability, beat strength, and overall regularity.
-              </p>
-              <p>
-                <b>• Energy (0-1):</b> Measures the intensity and activity level of a track. 
-                Typically, energetic tracks feel fast, loud, and noisy.
-              </p>
-              <p>
-                <b>• Speechiness (0-1):</b> Detects the presence of spoken words in a track. The more exclusively speech-like 
-                the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.
-              </p>
-              <p>
-                <b>• Valence (0-1):</b> Describes the musical positiveness conveyed by a track. Higher valence values indicate 
-                more positive and uplifting music, while lower values indicate more negative or melancholic music.
-              </p>
-              <p>
-                <b> • Accousticness (0-1):</b> A confidence measure of whether the track is acoustic. 1.0 represents high confidence
-                the track is acoustic.
-              </p>
+        <div style="text-align: center; padding-left: 5vw; display: flex;">
+          <div class="text-column">
+            <h4>
+              Using the audio statistics of the top 2000 tracks on Spotify from 2000-2019 
+              we investigated the trends in music over the past two decades.
+            </h4>
+            <h4>Now you can explore the data yourself and see how your favorite music compares to the rest of the world!</h4>
+            <br>
+            <h4>Before you start, let's learn about some features first:</h4>
+            <br>
+            <button id="info-button" class="info-button" data-aos="fade-in" data-aos-duration="1200" data-aos-delay="1000">Click Here</button>
+            <div id="info-card" class="info-card">
+              <div class="info-content">
+                <h2>Music Features</h2>
+                <p>
+                  <b>• Tempo:</b> Beats per minute (BPM); how fast, medium, or slow a piece of music is played or sung.
+                </p>
+                <p>
+                  <b>• Danceability (0-1):</b> Describes how suitable a track is for dancing based on a combination of musical 
+                  elements including tempo, rhythm stability, beat strength, and overall regularity.
+                </p>
+                <p>
+                  <b>• Energy (0-1):</b> Measures the intensity and activity level of a track. 
+                  Typically, energetic tracks feel fast, loud, and noisy.
+                </p>
+                <p>
+                  <b>• Speechiness (0-1):</b> Detects the presence of spoken words in a track. The more exclusively speech-like 
+                  the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.
+                </p>
+                <p>
+                  <b>• Valence (0-1):</b> Describes the musical positiveness conveyed by a track. Higher valence values indicate 
+                  more positive and uplifting music, while lower values indicate more negative or melancholic music.
+                </p>
+                <p>
+                  <b> • Accousticness (0-1):</b> A confidence measure of whether the track is acoustic. 1.0 represents high confidence
+                  the track is acoustic.
+                </p>
+              </div>
+              <button id="close-button" class="close-button">Close</button>
             </div>
-            <button id="close-button" class="close-button">Close</button>
+          </div>
+          <div class="img-column">
+            <img src="https://cdn.dribbble.com/users/2284480/screenshots/15988331/media/9335cd177db6913a8059ffc9d0c20e11.gif" alt="Spotify's logo GIF" style="float: right; height: 100vh; vertical-align: text-top;">
           </div>
         </div>
         <script src="./scripts/infocard.js"></script>
-        <a href="#section3" class="scroll-down image-replace" style="left: 20vw;">scroll down</a>
+        <a href="#section3" class="scroll-down image-replace">scroll down</a>
       </div>
     </section>
 
@@ -84,38 +88,42 @@
     <section id="section3" class="nav-section section">
       <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
         <h2 style="padding-top: 5vh">How has music changed over time?</h2>
-        <div style="padding-top: 5vh" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="600" id="temporal-chart">
-          <fieldset>
-            <legend>Select a feature</legend>
-            <label>
-              <input type="radio" name="column" value="duration" checked> Duration <em>(milliseconds)</em>
-            </label>
+        <div style="padding-top: 5vh; display: flex;" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="600">
+          <div class="chart-column">
+            <div id="temporal-chart"></div>
+          </div>
+          <div class="info-column">
+            <fieldset>
+              <legend>Select a feature</legend>
+              <label>
+                <input type="radio" name="column" value="duration" checked> Duration <em>(milliseconds)</em>
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="column" value="danceability"> Danceability
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="column" value="energy"> Energy
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="column" value="speechiness"> Speechiness
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="column" value="valence"> Valence
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="column" value="tempo"> Tempo
+              </label>
+            </fieldset> 
             <br>
-            <label>
-              <input type="radio" name="column" value="danceability"> Danceability
-            </label>
-            <br>
-            <label>
-              <input type="radio" name="column" value="energy"> Energy
-            </label>
-            <br>
-            <label>
-              <input type="radio" name="column" value="speechiness"> Speechiness
-            </label>
-            <br>
-            <label>
-              <input type="radio" name="column" value="valence"> Valence
-            </label>
-            <br>
-            <label>
-              <input type="radio" name="column" value="tempo"> Tempo
-            </label>
-          </fieldset> 
-          <div class="text-box">
             <div id="description-text"></div>
+            <a href="#section4" class="scroll-down image-replace">scroll down</a>
           </div>
         </div>
-        <a href="#section4" class="scroll-down image-replace" style="left: 80vw">scroll down</a>
       </div>
     </section>
 
@@ -124,7 +132,7 @@
       <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
         <h2 style="padding-top: 5vh">What are the most popular genres?</h2>
         <h3>Here, popularity is considered by the number of songs of each genre in the Spotify Top Hits list in the past two decades.</h3>
-        <div style="padding-top: 5vh; padding-bottom: 5vh;" id="genresGraph">
+        <div style="padding-top: 5vh; padding-bottom: 3vh;" id="genresGraph">
           <button id="backToBarChartButton" class="back-button hidden" onclick="showBarChart()">Voltar</button>
         </div>
         <a href="#section5" class="scroll-down image-replace">scroll down</a>

@@ -7,16 +7,16 @@ const clearButton = document.querySelector(".clear-button");
 const svg3 = d3.select("#features-chart")
     .append("svg")
     .attr("width", 1100)
-    .attr("height", 600);
+    .attr("height", 500);
 
 const textGroup = svg3.append("g")
-    .attr("transform", "translate(370,49)");
+    .attr("transform", "translate(" + (svg3.attr("width") / 2) + ",50)");
 
 const textGroup2 = svg3.append("g")
-    .attr("transform", "translate(10,122)");
+    .attr("transform", "translate(50,115)");
 
 const g = svg3.append("g")
-    .attr("transform", "translate(820,300)");
+    .attr("transform", "translate(830,290)");
 
 // --------- data variables ----------
 let musicData = [];
@@ -45,8 +45,8 @@ clearButton.onclick = () => {
 }
 
 var arcGenerator = d3.arc()
-  .innerRadius((d, idx) => 110 + 25 * idx)
-  .outerRadius((d, idx) => 130 + 25 * idx)
+  .innerRadius((d, idx) => 90 + 25 * idx)
+  .outerRadius((d, idx) => 110 + 25 * idx)
   .startAngle(d => 0)
   .endAngle(d => d.value * 2 * Math.PI)
   .padAngle(0.005) 
@@ -244,7 +244,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
     textGroup.append("text")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("font-size", "24px")
+        .attr("font-size", "22px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
@@ -252,16 +252,25 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup.append("text")
         .attr("x", 0)
-        .attr("y", 26)
-        .attr("font-size", "17px")
+        .attr("y", 25)
+        .attr("font-size", "16px")
         .attr("fill", "#fff")
         .attr("text-anchor", "middle")
         .text(selectedMusicArtist ? "by " + selectedMusicArtist + " | Release Year: " + year : "");
 
+    textGroup.append("text")
+        .attr("x", 0)
+        .attr("y", 52)
+        .attr("font-size", "16px")
+        .attr("font-style", "italic")
+        .attr("fill", "red")
+        .attr("text-anchor", "middle")
+        .text(data.explicit === "True" ? "This song is explicit!" : "");
+
     textGroup2.append("text")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("font-size", "19px")
+        .attr("font-size", "18px")
         .attr("font-weight", "bold")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -269,7 +278,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 29)
+        .attr("y", 26)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -277,7 +286,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 59)
+        .attr("y", 56)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -285,7 +294,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 89)
+        .attr("y", 86)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -293,7 +302,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 119)
+        .attr("y", 116)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -301,7 +310,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 149)
+        .attr("y", 146)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -309,7 +318,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 179)
+        .attr("y", 176)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
@@ -317,8 +326,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 220)
-        .attr("font-size", "17px")
+        .attr("y", 212)
+        .attr("font-size", "15.5px")
         .attr("font-weight", "bold")
         .attr("fill", "#ADC716")
         .attr("text-anchor", "left")
@@ -326,8 +335,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 250)
-        .attr("font-size", "17px")
+        .attr("y", 242)
+        .attr("font-size", "15.5px")
         .attr("font-weight", "bold")
         .attr("fill", "#3ED117")
         .attr("text-anchor", "left")
@@ -335,8 +344,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 280)
-        .attr("font-size", "17px")
+        .attr("y", 272)
+        .attr("font-size", "15.5px")
         .attr("font-weight", "bold")
         .attr("fill", "#1EBA55")
         .attr("text-anchor", "left")
@@ -344,8 +353,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 310)
-        .attr("font-size", "17px")
+        .attr("y", 302)
+        .attr("font-size", "15.5px")
         .attr("font-weight", "bold")
         .attr("fill", "#17D1B9")
         .attr("text-anchor", "left")
@@ -353,8 +362,8 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 340)
-        .attr("font-size", "17px")
+        .attr("y", 332)
+        .attr("font-size", "15.5px")
         .attr("font-weight", "bold")
         .attr("fill", "#0782C7")
         .attr("text-anchor", "left")
@@ -362,16 +371,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 385)
-        .attr("font-size", "15px")
-        .attr("font-style", "italic")
-        .attr("fill", "red")
-        .attr("text-anchor", "left")
-        .text(data.explicit === "True" ? "This song is explicit." : "");
-
-    textGroup2.append("text")
-        .attr("x", 0)
-        .attr("y", 426)
+        .attr("y", 375)
         .attr("font-size", "15px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")
