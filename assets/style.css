@@ -73,7 +73,7 @@ a:visited {
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
-  width: 40vw;
+  width: 42vw;
   height: auto;
   background-color: #f9f9f9eb;
   border-radius: 5px;
@@ -161,7 +161,7 @@ fieldset legend {
   padding: 13px;
   margin-top: 10px;
   text-align: center;
-  width: 20vw;
+  width: 16vw;
   height: fit-content;
   border: #1DB954 solid 2px;
   border-radius: 5px;

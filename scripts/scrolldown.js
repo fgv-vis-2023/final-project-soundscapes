@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var scrollDownLink = document.querySelector('.scroll-down');
+  var scrollDownLinks = document.querySelectorAll('.scroll-down');
 
+  scrollDownLinks.forEach(function(scrollDownLink) {
     scrollDownLink.addEventListener('click', function(e) {
       e.preventDefault();
-
-      var section2 = document.getElementById('section2');
-      var section2Top = section2.offsetTop;
+      
+      var target = scrollDownLink.getAttribute('href');
+      var targetElement = document.querySelector(target);
+      var targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      console.log(targetTop);
 
       window.scrollTo({
-        top: section2Top,
+        top: targetTop,
         behavior: 'smooth'
       });
     });
   });
+});
