@@ -4,6 +4,20 @@ html, body {
     color: white;
   }
 
+h2 {
+  font-size: 22px;
+  margin-bottom: 1px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 1px;
+}
+
+p {
+  font-size: 14px;
+}
+
 a {
   cursor: pointer;
   color: #1DB954;
@@ -161,7 +175,7 @@ fieldset legend {
   padding: 13px;
   margin-top: 10px;
   text-align: center;
-  width: 16vw;
+  width: 15vw;
   height: fit-content;
   border: #1DB954 solid 2px;
   border-radius: 5px;

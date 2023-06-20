@@ -53,7 +53,7 @@ function drawBarChart(data) {
     yScale.domain(sortedData.map(d => d[0]));
 
     svg.append('g')
-        .attr('transform', `translate(50, ${height - MARGIN_DOWN-50})`)
+        .attr('transform', `translate(50, ${height - MARGIN_DOWN-60})`)
         .call(d3.axisBottom(xScale));
 
     svg.append('g')
@@ -102,8 +102,8 @@ function drawBarChart(data) {
         .text("Genres");
 
     svg.append("text")
-        .attr("x", 1125)
-        .attr("y", height - MARGIN_DOWN - 50)
+        .attr("x", 870)
+        .attr("y", height - MARGIN_DOWN - 70)
         .attr("text-anchor", "middle")
         .attr("fill", "white")
         .attr("font-weight", "bold")
@@ -147,13 +147,13 @@ function updateScatterPlot(selectedData) {
 
     // Update scales' domains
     yScale = d3.scaleLinear()
-        .range([height - MARGIN_DOWN - 50, MARGIN_TOP])
+        .range([height - MARGIN_DOWN - 60, MARGIN_TOP+10])
         .nice();
     xScale.domain([0, 100]);
     yScale.domain([0, 1]);
 
     svg.append('g')
-        .attr('transform', `translate(50, ${height - MARGIN_DOWN-50})`)
+        .attr('transform', `translate(50, ${height - MARGIN_DOWN-60})`)
         .call(d3.axisBottom(xScale));
 
     svg.append('g')
@@ -187,7 +187,7 @@ function updateScatterPlot(selectedData) {
         );
 
     svg.append("text")
-        .attr("x", MARGIN_LEFT)
+        .attr("x", MARGIN_LEFT+5)
         .attr("y", MARGIN_TOP)
         .attr("text-anchor", "left")
         .attr("fill", "white")
@@ -196,8 +196,8 @@ function updateScatterPlot(selectedData) {
         .text("Energy");
 
     svg.append("text")
-        .attr("x", 1100)
-        .attr("y", height - MARGIN_DOWN - 50)
+        .attr("x", 890)
+        .attr("y", height - MARGIN_DOWN - 55)
         .attr("text-anchor", "middle")
         .attr("fill", "white")
         .attr("font-weight", "bold")

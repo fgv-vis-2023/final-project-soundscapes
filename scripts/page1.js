@@ -2,8 +2,8 @@ const margin = { top: 20, right: 20, bottom: 30, left: 30 };
 
 const svg1 = d3.select("#temporal-chart")
   .append("svg")
-  .attr("width", 1000)
-  .attr("height", 600);
+  .attr("width", 900)
+  .attr("height", 560);
 
 function cleanData(data, column) {
   data.forEach(d => {
@@ -53,18 +53,18 @@ function createChart(chartData, column) {
 
   const xScale = d3.scaleLinear()
     .domain(d3.extent(aggregatedData, d => d.year))
-    .range([margin.left, 900 - margin.right]);
+    .range([margin.left, 850 - margin.right]);
   
   const yScale = d3.scaleLinear()
     .domain([0, d3.max(aggregatedData, d => d.value) * 1.1])
-    .range([500 - margin.bottom, margin.top]);
+    .range([480 - margin.bottom, margin.top]);
 
   const line = d3.line()
     .x(d => xScale(d.year))
     .y(d => yScale(d.value));
 
   svg1.append("g")
-    .attr("transform", `translate(0, ${500 - margin.bottom})`)
+    .attr("transform", `translate(0, ${480 - margin.bottom})`)
     .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
   svg1.append("g")
@@ -81,8 +81,8 @@ function createChart(chartData, column) {
     .text("Average " + column);
 
   svg1.append("text")
-    .attr("x", 905)
-    .attr("y", 475)
+    .attr("x", 845)
+    .attr("y", 450)
     .attr("text-anchor", "middle")
     .attr("fill", "white")
     .attr("font-weight", "bold")
@@ -111,7 +111,7 @@ function createChart(chartData, column) {
 
       svg1.append("text")
         .attr("id", "tooltip")
-        .attr("x", xScale(d.year))
+        .attr("x", xScale(d.year) - 15)
         .attr("y", yScale(d.value) - 12)
         .attr("text-anchor", "left")
         .attr("fill", "#FFFFFF")
