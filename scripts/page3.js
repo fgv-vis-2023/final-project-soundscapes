@@ -13,10 +13,10 @@ const textGroup = svg3.append("g")
     .attr("transform", "translate(" + (svg3.attr("width") / 2) + ",45)");
 
 const textGroup2 = svg3.append("g")
-    .attr("transform", "translate(50,110)");
+    .attr("transform", "translate(50,100)");
 
 const g = svg3.append("g")
-    .attr("transform", "translate(830,285)");
+    .attr("transform", "translate(830,280)");
 
 // --------- data variables ----------
 let musicData = [];
@@ -45,8 +45,8 @@ clearButton.onclick = () => {
 }
 
 var arcGenerator = d3.arc()
-  .innerRadius((d, idx) => 75 + 25 * idx)
-  .outerRadius((d, idx) => 95 + 25 * idx)
+  .innerRadius((d, idx) => 60 + 25 * idx)
+  .outerRadius((d, idx) => 80 + 25 * idx)
   .startAngle(d => 0)
   .endAngle(d => d.value * 2 * Math.PI)
   .padAngle(0.005) 
@@ -371,7 +371,7 @@ function updateDonutChart(data, selectedMusicTitle, selectedMusicArtist, popular
 
     textGroup2.append("text")
         .attr("x", 0)
-        .attr("y", 373)
+        .attr("y", 372)
         .attr("font-size", "14px")
         .attr("fill", "#fff")
         .attr("text-anchor", "left")

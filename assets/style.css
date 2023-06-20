@@ -7,15 +7,25 @@ html, body {
 h2 {
   font-size: 22px;
   margin-bottom: 1px;
+  margin-top: 5px;
 }
 
 h3 {
   font-size: 18px;
   margin-bottom: 1px;
+  margin-top: 10px;
+}
+
+h4 {
+  font-size: 15.5px;
+  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 p {
   font-size: 14px;
+  margin-bottom: 1px;
+  margin-top: 2px;
 }
 
 a {
@@ -175,7 +185,7 @@ fieldset legend {
   padding: 13px;
   margin-top: 10px;
   text-align: center;
-  width: 15vw;
+  width: 16vw;
   height: fit-content;
   border: #1DB954 solid 2px;
   border-radius: 5px;
@@ -211,7 +221,7 @@ fieldset legend {
 }
 
 .search-input input{
-  height: 32px;
+  height: 28px;
   width: 100%;
   max-width: 480px;
   text-align: center;
