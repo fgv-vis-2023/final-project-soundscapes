@@ -21,11 +21,9 @@ Then the group decided it would be a good distribution if each of the members fo
 
 In summary, the connection between sound waves and music inspired the idea of making the project resemble a dive in the ocean, starting with a shallow part, a superficial one, and adding depth as you swim out to sea, so, starting with a more generic visualization, adding complexity and interactiveness as you scroll down the page. With that in mind, we used elements reminiscent of waves and the color palette from Spotify (black, green, and white). 
 
-![Spotify Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/assets/spotify-palette.png)
-
 Using Adobe Color’s Color Wheel tool, the following analogous color palette was chosen for the last visualization, centered on Spotify’s main color, but setting different colors for each feature:
 
-![Color Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/tree/main/assets/paleta.png)
+![Color Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/assets/paleta.png)
 
 ## 🗣️ Peer Critique Feedbacks
 
