@@ -5,176 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SoundScapes</title>
-    <link rel="icon" type="image/png" href="./assets/favicon.png">
 
-    <script src="https://d3js.org/d3.v7.min.js"></script> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <link rel="stylesheet" href="./assets/style.css">
-    <!-- Load AOS library for animation on scroll-->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Add icon library -->
+    <link rel="stylesheet" href="./assets/style_index.css">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous">
   </head>
-
   <body>
-    <!-- 1. Title -->
-    <section id="section1" class="section nav-section">
-      <div style="width:100%; height: 100%; background-image: url('./assets/background.jpg'); background-position: center; background-repeat: no-repeat; background-size:cover;">
-        <div style="padding-top: 17vh; padding-bottom: 56vh;">
-          <div style="padding-left: 10vw">
-            <h1 data-aos="fade-in" data-aos-duration="1200" data-aos-delay="100" style="font-size: 50px; margin-bottom: 0.3em;">SoundScapes</h1>
-            <h2 data-aos="fade-in" data-aos-duration="1800" data-aos-delay="300" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
-          </div>
-        </div>
-        <a href="#section2" class="scroll-down image-replace">scroll down</a>
-      </div>
-    </section>
-
-    <!-- 2. Context -->
-    <section id="section2" class="nav-section section">
-      <div data-aos="fade-in" data-aos-duration="1200" data-aos-delay="300" style="height: 100%;">
-        <div style="text-align: center; padding-left: 5vw; display: flex;">
-          <div class="text-column">
-            <h4>
-              Using the audio statistics of the top 2000 tracks on Spotify from 2000-2019 
-              we investigated the trends in music over the past two decades.
-            </h4>
-            <h4>Now you can explore the data yourself and see how your favorite music compares to the rest of the world!</h4>
+    <div data-aos="fade-in" data-aos-duration="1200" data-aos-delay="300" style="height: 100%;">
+      <div style="padding-left: 4vw; display: flex;">
+        <div class="text-column" style="padding-right: 1vw;">
+          <h1 data-aos="fade-in" data-aos-duration="1200" data-aos-delay="100" style="font-size: 50px; margin-bottom: 0.1em;">SoundScapes</h1>
+          <h2 data-aos="fade-in" data-aos-duration="1800" data-aos-delay="300" style="margin-top: 0;">a deep dive into Spotify's tracks</h2>
+          <br>
+          <h4><em>by Paloma Borges, Cristiano Larréa and Bernardo Vargas</em></h4>
+          <a href="viz.html" class="button">Go to our Visualization Page</a>
+          <br>
+          <div class="line"></div>
+          <br>
+          <h4><em>Abstract:</em></h4>
+          <p>This project showcases an interactive web application called SoundScapes: A deep dive into Spotify's tracks, 
+              which combines data visualization and scrollytelling, allowing users to explore the characteristics of the 
+              most popular songs on Spotify from 2000 to 2019, providing insights into the audio features utilized by               
+              the platform. It also enables users to better understand the musical landscape during this period.</p>
+          <br>
+          <div>
             <br>
-            <h4>Before you start, let's learn about some features first:</h4>
+            <a href="https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/FinalPaper.pdf" target="_blank" class="button">Read Full Paper</a>
+            <a href="https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/FinalPaper.pdf" target="_blank" class="button">Demo Video</a>
             <br>
-            <button id="info-button" class="info-button" data-aos="fade-in" data-aos-duration="1200" data-aos-delay="1000">Click Here</button>
-            <div id="info-card" class="info-card">
-              <div class="info-content">
-                <h2>Music Features</h2>
-                <p>
-                  <b>• Tempo:</b> Beats per minute (BPM); how fast, medium, or slow a piece of music is played or sung.
-                </p>
-                <p>
-                  <b>• Danceability (0-1):</b> Describes how suitable a track is for dancing based on a combination of musical 
-                  elements including tempo, rhythm stability, beat strength, and overall regularity.
-                </p>
-                <p>
-                  <b>• Energy (0-1):</b> Measures the intensity and activity level of a track. 
-                  Typically, energetic tracks feel fast, loud, and noisy.
-                </p>
-                <p>
-                  <b>• Speechiness (0-1):</b> Detects the presence of spoken words in a track. The more exclusively speech-like 
-                  the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.
-                </p>
-                <p>
-                  <b>• Valence (0-1):</b> Describes the musical positiveness conveyed by a track. Higher valence values indicate 
-                  more positive and uplifting music, while lower values indicate more negative or melancholic music.
-                </p>
-                <p>
-                  <b> • Accousticness (0-1):</b> A confidence measure of whether the track is acoustic. 1.0 represents high confidence
-                  the track is acoustic.
-                </p>
-              </div>
-              <button id="close-button" class="close-button">Close and Scroll Down</button>
-            </div>
-          </div>
-          <div class="img-column">
-            <img src="https://cdn.dribbble.com/users/2284480/screenshots/15988331/media/9335cd177db6913a8059ffc9d0c20e11.gif" alt="Spotify's logo GIF" style="float: right; height: 99vh; vertical-align: text-top;">
           </div>
         </div>
-        <script src="./scripts/infocard.js"></script>
-      </div>
-    </section>
-
-    <!-- 3. Temporal Analysis -->
-    <section id="section3" class="nav-section section">
-      <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
-        <h2 style="padding-top: 5vh">How has music changed over time?</h2>
-        <div style="padding-top: 5vh; display: flex;" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="600">
-          <div class="chart-column">
-            <div id="temporal-chart"></div>
-          </div>
-          <div class="info-column">
-            <fieldset>
-              <legend>Select a feature</legend>
-              <label>
-                <input type="radio" name="column" value="duration" checked> Duration <em>(milliseconds)</em>
-              </label>
-              <br>
-              <label>
-                <input type="radio" name="column" value="danceability"> Danceability
-              </label>
-              <br>
-              <label>
-                <input type="radio" name="column" value="energy"> Energy
-              </label>
-              <br>
-              <label>
-                <input type="radio" name="column" value="speechiness"> Speechiness
-              </label>
-              <br>
-              <label>
-                <input type="radio" name="column" value="valence"> Valence
-              </label>
-              <br>
-              <label>
-                <input type="radio" name="column" value="tempo"> Tempo
-              </label>
-            </fieldset> 
-            <br>
-            <div id="description-text"></div>
-          </div>
+        <div class="img-column">
+          <img src="https://cdn.dribbble.com/users/2284480/screenshots/15988331/media/9335cd177db6913a8059ffc9d0c20e11.gif" alt="Spotify's logo GIF" style="float: right; height: 99vh; vertical-align: text-top;">
         </div>
       </div>
-    </section>
-
-    <!-- 4. Singers/Genres Analysis -->
-    <section id="section4" class="nav-section section">
-      <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
-        <h2 style="padding-top: 6vh">What are the most popular genres?</h2>
-        <h3>Here, popularity is considered by the number of songs of each genre in the Spotify Top Hits list in the past two decades.</h3>
-        <div style="padding-top: 5vh; padding-bottom: 3vh;" id="genresGraph">
-          <button id="backToBarChartButton" class="back-button hidden" onclick="showBarChart()">Voltar</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Music Features -->
-    <section id="section5" class="nav-section section">
-      <div data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100" style="text-align: center">
-        <h2 style="padding-top: 5vh">What about your favorite music?</h2>
-        <h4>Search for a song to discover more about it!</h4>
-        <div class="search-input">
-          <input type="text" placeholder="Type to search music..." autocomplete="off">
-          <button class="clear-button">Clear</button>
-          <div class="result-box">
-            <!-- here list are inserted from javascript -->
-          </div>
-        </div>
-        <div id="features-chart"></div>
-      </div>
-    </section>
-
-    <!-- Footer-->
-    <section id="footer">
-      <div class="line"></div>
-      <div>
-        <p>Developed by Paloma Borges, Cristiano Larrea and Bernardo Vargas</p>
-        <p>Data Sources:
-        <a href="https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019">Spotify Dataset from Kaggle</a> | 
-        <a href="https://www.freepik.com/free-vector/green-background-with-sound-wave_1106707.htm#query=sound%20background&position=0&from_view=search&track=ais">Background Image by Freepik</a> |
-        <a href="https://dribbble.com/shots/15988331-Spotify-Animation">Spotify Animation by Dribble</a></p>
-      </div>
-    </section>
-
-    <!-- Load scripts -->
-    <script src="./scripts/page1.js"></script>
-    <script src="./scripts/page2.js"></script>
-    <script src="./scripts/page3.js"></script>
-
-    <!-- Load AOS Animation on Scroll library and initialize it -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-    <!-- Load Scroll Down script --> 
-    <script src="./scripts/scrolldown.js"></script>
+    </div>
   </body>
 </html>

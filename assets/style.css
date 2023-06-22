@@ -34,15 +34,11 @@ a {
 }
 
 a:hover {
-  color: white;
+  color: #117634;
 }
 
 a:link {
   text-decoration: none;
-}
-
-a:visited {
-  color: #117634;
 }
   
 .scroll-down {

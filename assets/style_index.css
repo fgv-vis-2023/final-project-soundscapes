@@ -1,0 +1,76 @@
+html, body {
+    background: black;
+    font-family: 'gotham', sans-serif;
+    color: white;
+  }
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 1px;
+  margin-top: 5px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 1px;
+  margin-top: 10px;
+}
+
+h4 {
+  font-size: 15.5px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 1px;
+  margin-top: 2px;
+}
+
+a {
+  cursor: pointer;
+  color: white;
+}
+
+a:hover {
+  color: #042a12;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.line {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 1px;
+  background: #1DB954;
+}
+
+.button {
+  background-color: #1DB954;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-right: 2vw;
+  margin-top: 2vw;
+  margin-bottom: 2.5vh;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.img-column {
+  flex: 1;
+}
+
+.text-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
