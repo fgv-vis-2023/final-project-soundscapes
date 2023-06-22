@@ -21,7 +21,7 @@ Then the group decided it would be a good distribution if each of the members fo
 
 In summary, the connection between sound waves and music inspired the idea of making the project resemble a dive in the ocean, starting with a shallow part, a superficial one, and adding depth as you swim out to sea, so, starting with a more generic visualization, adding complexity and interactiveness as you scroll down the page. With that in mind, we used elements reminiscent of waves and the color palette from Spotify (black, green, and white). 
 
-![Spotify Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/tree/main/assets/spotify-palette.png)
+![Spotify Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/assets/spotify-palette.png)
 
 Using Adobe Color’s Color Wheel tool, the following analogous color palette was chosen for the last visualization, centered on Spotify’s main color, but setting different colors for each feature:
 
@@ -35,7 +35,7 @@ After presenting the MVP, we received feedback from our classmates, which helped
 - The second visualization, previously presented as a bubble chart, was remade as a bar chart that later is transformed into a scatterplot, to solve several of the problems pointed out in the feedback, such as lack of clarity, choice of colors, and so on. 
 - Finally, in the arc chart, some changes were made following the feedback received: the text explaining the metrics (now available in the initial part of the project) was replaced by information from the artist of the selected song, in addition to comparisons of the features of the selected song with the average values of that artist. Some suggestions like adding the functionality of a music player and a search by artist instead of by tracks are being eval for future work.
 
-![Arc Features Chart](https://github.com/fgv-vis-2023/final-project-soundscapes/tree/main/assets/features-chart.png)
+![Arc Features Chart](https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/assets/features-chart.png)
 
 ## 🛈 Sources and References
 - Data set: [Top Hits Spotify from 2000-2019 | Kaggle](https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019)
