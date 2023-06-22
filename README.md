@@ -1,22 +1,41 @@
-# SoundScapes: A Deep Dive into Spotify's Tracks
+# 🎶 SoundScapes: A Deep Dive into Spotify's Tracks
 
 Projeto final desenvolvido para a disciplina de Data Visualization pelos alunos [Bernardo Vargas](https://github.com/bernardovma), [Cristiano Lárrea](https://github.com/cristianolarrea) e [Paloma Borges](https://github.com/palomavb).
 
-Página do projeto: https://fgv-vis-2023.github.io/final-project-soundscapes/
+Project Page: https://fgv-vis-2023.github.io/final-project-soundscapes/
 
-## Project's Decisions
+## 📜 Abstract
+This project showcases an interactive web application called SoundScapes: A deep dive into Spotify's tracks, which combines data visualization and scrollytelling, allowing users to explore the characteristics of the most popular songs on Spotify from 2000 to 2019, providing insights into the audio features utilized by the platform. It also enables users to better understand the musical landscape during this period.
 
-To decide what topic would be approached and therefore get such project starting, the group decided together what subject would be of not only the members' interest, but would appeal for the users as well, and nothing sounded more universal than music. Looking through options, the dataset that showed some of the top tracks on Spotify over the last two decades were chosen, since it would be a great way to build a good, interest and interactive storytelling for the consumer.
+[Link to Paper](https://github.com/fgv-vis-2023/final-project-soundscapes/blob/main/FinalPaper.pdf) | [Link to Demo Video](https://drive.google.com/file/d/131wB04ATMsV-sAOeV-2DpVAl2c4R-j5c/view?usp=sharing)
 
-Initial goals were simple, creating a pleasant looking page that the user could learn more about the bigger picture of the music scene on the last two decades (according to Spotify's biggest tracks). Further discussions landed on providing a way the consmumers could have an historical view for these last decades (for the different metrics available), analyze how the genres have been doing and even being able to search musics of theis interest and seeing how they were rankes through the metrics, adding the interactiveness and personalization needed for a good project. 
+## ⚙️ Project's Process
 
-With the visualizations ideas designed, the project needed and identity. Always with the objective of constructing an interactive storytelling, the connection between waves (sound waves) and music inspired an idea of making the project resemble a dive in the ocean, starting with a shallow part, a superficial one, and adding depth as you swim out to sea, so, starting with a more generic visualization, adding complexity and interactiveness as you scroll down the page. With that, the deep dive on Spotify's tracks concept was born.
+To decide what topic would be approached and therefore get the project starting, the group decided together what subject would be of not only the members' interest, but would appeal to the users as well, and nothing sounded more universal than music. Looking through options, the dataset that showed some of the top tracks on Spotify over the last two decades was chosen, since it would be a great way to build good, interesting, and interactive storytelling for the consumer.
 
-Then the group decided it would be a good distribution if each of the members focused on one visualization, so the work would be more balanced and the members could focus on their own visualization, making it the best they could. Obviously that didn't mean that the members wouldn't help each other, fixing bugs for each other and giving tips on what could be improved to the better of the project. With that, the group decided that the first visualization would be a general overview of the top tracks, with the second one being a more historical view of the top tracks, and the third one being a more personal view, where the user could search for a specific track and see how it ranked on the different metrics. That lead to the three visualizations presented in the page, the first one being more superficial and adding depth through out the page, as the user scrolls down. 
+The initial goals were simple, creating a pleasant-looking and user-friendly page where the user could learn more about the bigger picture of the music scene in the last two decades (according to Spotify's biggest tracks). Further discussions landed on providing a way the consumers could have a historical view of these last decades (for the different metrics available), analyze how the genres have been doing and even being able to search songs of their interest and see how they were ranked through the metrics, adding the interactiveness and personalization needed for a good project. 
 
-As our colleagues appointed critics to the project, such as lack of information to the scatterplot's axis, placement of metrics explanation, upgrading such bar on the third visualization, we took them into consideration and made the necessary changes to the project, making it more informative and clearer. Obviously all the critics were made in the intetion to help the project grow, but onde main decisions when analyzing critics is selecting those which are in sync with the group's view of the project, maintaining the concepts and the identity of it. One key aspects of the peer critique was also bug fixes, since them as costumers canhelp identify which features are not working well when exploring the page, helping the group correct them to the final presentation.
+Then the group decided it would be a good distribution if each of the members focused on one visualization, so the work would be more balanced and the members could focus on their visualization, making it the best they could. Obviously, that didn't mean that the members wouldn't help each other, fixing bugs for each other and giving tips on what could be improved for the better of the project. With that, the group decided that the first visualization would be a general overview of the top tracks, with the second one being a more historical view of the top tracks, and the third one being a more personal view, where the user could search for a specific track and see how it ranked on the different metrics.
 
-## Sources and References
-- Data: [Top Hits Spotify from 2000-2019 | Kaggle](https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019)
+## 🖌️ Project's Design
+
+In summary, the connection between sound waves and music inspired the idea of making the project resemble a dive in the ocean, starting with a shallow part, a superficial one, and adding depth as you swim out to sea, so, starting with a more generic visualization, adding complexity and interactiveness as you scroll down the page. With that in mind, we used elements reminiscent of waves and the color palette from Spotify (black, green, and white). Using Adobe Color’s Color Wheel tool, the following analogous color palette was chosen for the last visualization, centered on Spotify’s main color, but setting different colors for each feature:
+
+![Color Palette](https://github.com/fgv-vis-2023/final-project-soundscapes/tree/main/assets/paleta.png)
+
+## 🗣️ Peer Critique Feedbacks
+
+After presenting the MVP, we received feedback from our classmates, which helped us to improve our project. The main points were:
+- The most recurrent feedback was the lack of an explanation of the metrics at the very beginning of the experience, so that the user would not be lost and could clearly understand all the visualizations. To solve this, we added an info-button right before the first graphics with the definition of all metrics used throughout the project.
+- In the first visualization, we added more features and a tooltip to make it more interactive and to make it possible to see the specific value in each point, and we fixed the scale of the y-axis so that it starts at 0. Another feedback received was the possibility of being able to see all features at the same time. However, some measures range from 0 to 1, and others have very different values (such as duration, measured in minutes, and BPM, with values over 100). This large difference in the range of variables did not allow us to create a compatible multi-line chart that allowed a fair comparison between the features.
+- The second visualization, previously presented as a bubble chart, was remade as a bar chart that later is transformed into a scatterplot, to solve several of the problems pointed out in the feedback, such as lack of clarity, choice of colors, and so on. 
+- Finally, in the arc chart, some changes were made following the feedback received: the text explaining the metrics (now available in the initial part of the project) was replaced by information from the artist of the selected song, in addition to comparisons of the features of the selected song with the average values of that artist. Some suggestions like adding the functionality of a music player and a search by artist instead of by tracks are being eval for future work.
+
+## 🛈 Sources and References
+- Data set: [Top Hits Spotify from 2000-2019 | Kaggle](https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019)
 - [Donut Chart](https://d3-graph-gallery.com/donut.html)
+- [Search Bar](https://dev.to/am20dipi/how-to-build-a-simple-search-bar-in-javascript-4onf)
+- [D3.js](https://d3js.org/)
 - [Adobe Color's Color Wheel](https://color.adobe.com/pt/create/color-wheel)
+- [Background Image by Freepik](https://www.freepik.com/free-vector/green-background-with-sound-wave_1106707.htm#query=sound%20background&position=0&from_view=search&track=ais)
+- [Spotify Animation Logo by Dribbble](https://dribbble.com/shots/15988331-Spotify-Animation)

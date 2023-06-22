@@ -139,7 +139,7 @@ function updateScatterPlot(selectedData) {
         .attr("background-color", "white")
         .attr("font-size", "12px")
         .attr("cursor", "pointer")
-        .text("Back to Bar Chart")
+        .text("⬅ Back to Bar Chart")
         .on("click", showBarChart);
 
      // Create a new yScale for the scatter plot

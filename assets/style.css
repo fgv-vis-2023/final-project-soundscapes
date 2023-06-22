@@ -153,9 +153,10 @@ legend {
 
 fieldset {
   height: fit-content;
-  width: fit-content;
+  width: 13vw;
+  font-size: 15px;
   text-align: left;
-  margin-left: 1.5vw;
+  margin-left: 1vw;
 }
 
 fieldset legend {
