@@ -208,7 +208,7 @@ function updateScatterPlot(selectedData) {
 
     circles
         .append('title')
-        .text(d => `Energy: ${d.energy}\nPopularity: ${d.popularity}`);
+        .text(d =>`Song: ${d.song}\nArtist: ${d.artist}\nEnergy: ${d.energy}\nPopularity: ${d.popularity}`);
 }
 
 // Function to show the bar chart again
