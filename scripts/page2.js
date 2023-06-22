@@ -119,7 +119,7 @@ function drawBarChart(data) {
 function handleClick(d) {
     var selectedGenre = d[0];
     var selectedData = data.filter(item => item.genre === selectedGenre);
-    
+
     // Call a function to update the chart with the selected data
     updateScatterPlot(selectedData);
 }
@@ -130,41 +130,46 @@ function updateScatterPlot(selectedData) {
     svg.selectAll("circle").remove(); // Remove previous circles
 
     var backButton = svg.append("text")
-    .attr("x", 850)
-    .attr("y", 30)
-    .attr("text-anchor", "left")
-    .attr("fill", "#1DB954")
-    .attr("font-weight", "bold")
-    .attr("font-size", "15px")
-    .attr("background-color", "white")
-    .attr("font-size", "12px")
-    .attr("cursor", "pointer")
-    .text("Back to Bar Chart")
-    .on("click", function() {
-        d3.select('#genresGraph svg').selectAll("*").remove();
-        drawBarChart(data);
-    });
+        .attr("x", 850)
+        .attr("y", 30)
+        .attr("text-anchor", "left")
+        .attr("fill", "#1DB954")
+        .attr("font-weight", "bold")
+        .attr("font-size", "15px")
+        .attr("background-color", "white")
+        .attr("font-size", "12px")
+        .attr("cursor", "pointer")
+        .text("Back to Bar Chart")
+        .on("click", showBarChart);
+
+     // Create a new yScale for the scatter plot
+     var scatterYScale = d3.scaleLinear()
+        .range([height - MARGIN_DOWN - 60, MARGIN_TOP + 10])
+        .nice();   
+
+    // Create a new xScale for the scatter plot
+    var scatterXScale = d3.scaleLinear()
+        .range([50, width - 200])
+        .nice();
 
     // Update scales' domains
-    yScale = d3.scaleLinear()
-        .range([height - MARGIN_DOWN - 60, MARGIN_TOP+10])
-        .nice();
-    xScale.domain([0, 100]);
-    yScale.domain([0, 1]);
+    scatterXScale.domain([0, 100]);
+    scatterYScale.domain([0, 1]);
 
     svg.append('g')
-        .attr('transform', `translate(50, ${height - MARGIN_DOWN-60})`)
-        .call(d3.axisBottom(xScale));
+        .attr('transform', `translate(50, ${height - MARGIN_DOWN - 60})`)
+        .call(d3.axisBottom(scatterXScale));
 
     svg.append('g')
         .attr('transform', `translate(${MARGIN_LEFT}, 0)`)
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(scatterYScale));
 
     var circles = svg.selectAll("circle")
         .data(selectedData)
-        .join("circle")
-        .attr("cx", d => xScale(d.popularity)+50)
-        .attr("cy", d => yScale(d.energy))
+        .enter()
+        .append("circle")
+        .attr("cx", d => scatterXScale(d.popularity) + 50)
+        .attr("cy", d => scatterYScale(d.energy))
         .attr("r", 5)
         .attr("fill", "#1DB954")
         .attr("stroke", "white")
@@ -174,17 +179,14 @@ function updateScatterPlot(selectedData) {
                 .attr("stroke-width", 2)
                 .attr("fill", "darkgreen")
                 .attr("r", 7)
-                // bring to front
                 .raise();
-        }
-        )
+        })
         .on("mouseout", function (d) {
             d3.select(this)
                 .attr("stroke-width", 1)
                 .attr("fill", "#1DB954")
                 .attr("r", 5);
-        }
-        );
+        });
 
     svg.append("text")
         .attr("x", MARGIN_LEFT+5)
@@ -196,8 +198,8 @@ function updateScatterPlot(selectedData) {
         .text("Energy");
 
     svg.append("text")
-        .attr("x", 890)
-        .attr("y", height - MARGIN_DOWN - 55)
+        .attr("x", 870)
+        .attr("y", height - MARGIN_DOWN - 70)
         .attr("text-anchor", "middle")
         .attr("fill", "white")
         .attr("font-weight", "bold")
@@ -206,5 +208,13 @@ function updateScatterPlot(selectedData) {
 
     circles
         .append('title')
-        .text(d => `${d.song}\nby ${d.artist} \nPopularity: ${d.popularity} \nEnergy: ${d.energy}`);
+        .text(d => `Energy: ${d.energy}\nPopularity: ${d.popularity}`);
+}
+
+// Function to show the bar chart again
+function showBarChart() {
+    d3.select('#genresGraph svg').selectAll("*").remove(); // Remove the previous svg
+    svg.selectAll("circle").remove(); // Remove previous circles
+
+    drawBarChart(data); // Call drawBarChart to re-render the bar chart
 }
